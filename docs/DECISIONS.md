@@ -50,3 +50,6 @@ Rooms published in the dashboard are stored on the server and served at `GET /v1
 - **Budget = lowest variant price x sets** (`setSize`). Prices come from the Shopify CSV (`npm run merge:prices`) and are shown by default (`EXPO_PUBLIC_SHOW_PRICES=0` hides them). Items without a price are listed and not counted.
 - **Thin stock:** kids and kitchen have few suitable pieces; "kitchen" is really a kitchen-and-dining nook, not a modular kitchen.
 - **360° view:** the proxy GLB is inlined as a data URI (no file access needed), the WebView reports ready/error, and on error or after 8 s it falls back to the photos with a message. The page does not scroll while a finger is on the viewer.
+
+## Free local photo-to-3D (TripoSR)
+`scripts/triposr_local.py` makes models with the open-weight TripoSR model on your own machine (no key, no credits, photos stay local), then `node scripts/image-to-3d.mjs --normalise` scales, grounds, checks and publishes them. One photo only, so back and sides are invented: review before release. Written but not run in this repo (this machine has CPU-only torch and no TripoSR checkout).
