@@ -107,15 +107,19 @@ describe('Saved', () => {
 describe('Onboarding', () => {
   const nav = () => ({ reset: jest.fn() });
 
-  it('picks a room type and size, then opens the scan', async () => {
+  it('has no form: browse furniture opens the library straight away', async () => {
     const navigation = nav();
     await render(<WelcomeScreen {...({ navigation } as any)} />);
-    await fireEvent.press(screen.getByLabelText('Bedroom'));
-    await fireEvent.press(screen.getByLabelText(t('welcome.sizeMedium', { area: 16 })));
-    expect(useRooms.getState().roomType).toBe('Bedroom');
+    expect(screen.queryByLabelText('Bedroom')).toBeNull();
+    await fireEvent.press(screen.getByText(t('welcome.browseRooms')));
+    expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'Tabs' }] });
+  });
+
+  it('scan my room opens the scan', async () => {
+    const navigation = nav();
+    await render(<WelcomeScreen {...({ navigation } as any)} />);
     await fireEvent.press(screen.getByText(t('welcome.scanRoom')));
     expect(useSettings.getState().onboarded).toBe(true);
-    expect(useSettings.getState().preset).toBe('medium');
     expect(navigation.reset).toHaveBeenCalledWith(expect.objectContaining({ routes: [{ name: 'Tabs' }, { name: 'AR', params: { starter: true, mode: 'scan' } }] }));
   });
 
