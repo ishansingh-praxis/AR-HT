@@ -2,6 +2,7 @@
 //   node scripts/bundle-models.mjs
 // For every models/raw/<product id>.glb: orient it upright, fit it to the listed size and check it (same as `image-to-3d.mjs --normalise`).
 // Models that pass are copied to assets/models/<id>.glb and listed in src/data/bundledModels.ts. Ones that need review are left out.
+// At most --max (default 60) models go inside the app; the rest stay in models/published/ to be hosted (MODEL_BASE_URL + publish-models.mjs).
 // To force one in anyway after you have looked at it: --accept <id>,<id>.  Remove a model: delete its file in assets/models and run again.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -10,6 +11,7 @@ import { normalise } from './publish-models.mjs';
 const RAW = 'models/raw', OUT = 'assets/models', TMP = 'models/published';
 const accept = new Set((process.argv.includes('--accept') ? process.argv[process.argv.indexOf('--accept') + 1] : '').split(',').filter(Boolean));
 const flip = new Set((process.argv.includes('--flip') ? process.argv[process.argv.indexOf('--flip') + 1] : '').split(',').filter(Boolean)); // facing the wrong way
+const MAX = Number((process.argv.includes('--max') ? process.argv[process.argv.indexOf('--max') + 1] : 60)); // the app download grows ~2 MB per bundled model
 const catalogue = JSON.parse(fs.readFileSync('src/data/catalogue.json', 'utf8'));
 const byId = new Map(catalogue.map((p) => [p.id, p]));
 fs.mkdirSync(OUT, { recursive: true }); fs.mkdirSync(TMP, { recursive: true });
@@ -22,7 +24,8 @@ for (const f of fs.readdirSync(RAW).filter((x) => x.endsWith('.glb') && !x.start
   const r = await normalise(path.join(RAW, f), out, p.dimensionsCm, flip.has(id) ? 180 : 0, { auto: true });
   const ok = !r.issues.length || (accept.has(id) && r.issues.every((i) => i.startsWith('shape is')));
   console.log(`${ok ? 'BUNDLE' : 'REVIEW'} ${id}  stretch ${r.stretch.toFixed(2)}x  ${r.issues.join('; ')}`);
-  if (ok) { fs.copyFileSync(out, path.join(OUT, f)); kept.push(id); }
+  if (ok && kept.length < MAX) { fs.copyFileSync(out, path.join(OUT, f)); kept.push(id); }
+  else if (ok) console.log('  (passed, but the app already holds', MAX, 'models: host this one instead, see docs/DEPLOY.md)');
 }
 // anything already bundled stays bundled
 for (const f of fs.readdirSync(OUT).filter((x) => x.endsWith('.glb'))) if (!kept.includes(f.slice(0, -4))) kept.push(f.slice(0, -4));
