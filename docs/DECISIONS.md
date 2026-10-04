@@ -34,6 +34,10 @@ The few strings that still come from the server (API error messages) are English
 Frame rates cannot be measured here. The code adds caps and fallbacks (30 pieces, level of detail past 15 real models, High to Standard drop when the app's frame rate falls under 20 fps for 5 s,
 model download cache), but the targets in `TESTING.md` (60 fps Library scroll, 30 fps AR with 10 pieces) must be checked on phones. The automatic quality drop watches the app's UI frame rate; Viro does not report AR render fps.
 
+## Shapes and photo-to-3D
+The built-in shapes were upgraded (cushions, legs, headboards, doors, handles) and are coloured from each product's own photo (`dominantHex`, 28 colours, 78 small GLBs).
+They are still not photo-real. `scripts/image-to-3d.mjs` is the route to real-looking models (needs your Meshy key; untested against the live service). Details in `prompts/MODELS.md`.
+
 ## What a real image-to-3D conversion would need
 The 360° view wraps the product photo around the true-size shape: it is an honest approximation, not a reconstruction. A real 3D model of each product needs one of: supplier CAD files,
 a 3D artist, or an image-to-3D service with artist clean-up (`prompts/MODELS.md`). Approved GLBs replace the shape automatically (admin dashboard, 3D models page).

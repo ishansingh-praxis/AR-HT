@@ -8,7 +8,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "typecheck": "tsc --noEmit",
-    "test": "node --no-warnings --experimental-strip-types scripts/geometry.test.ts && node --no-warnings --experimental-strip-types scripts/frame-wall.test.ts && node --no-warnings --experimental-strip-types scripts/catalogue.test.ts && node --no-warnings --experimental-strip-types scripts/sync.test.ts && node --no-warnings --experimental-strip-types scripts/sync2.test.ts && node --no-warnings --experimental-strip-types scripts/room.test.ts && node --no-warnings --experimental-strip-types scripts/rooms.test.ts && node --no-warnings --experimental-strip-types scripts/recommend.test.ts && node --no-warnings --experimental-strip-types scripts/step07.test.ts && node --no-warnings --experimental-strip-types scripts/plan.test.ts && node --no-warnings --experimental-strip-types scripts/plan-editor.test.ts && node --no-warnings --experimental-strip-types scripts/importer.test.ts && node --no-warnings --experimental-strip-types scripts/perf.test.ts && node --no-warnings --experimental-strip-types scripts/scrub.test.ts && node --no-warnings --experimental-strip-types scripts/theme.test.ts && node --no-warnings --experimental-strip-types scripts/i18n.test.ts",
+    "test": "node --no-warnings --experimental-strip-types scripts/geometry.test.ts && node --no-warnings --experimental-strip-types scripts/frame-wall.test.ts && node --no-warnings --experimental-strip-types scripts/catalogue.test.ts && node --no-warnings --experimental-strip-types scripts/sync.test.ts && node --no-warnings --experimental-strip-types scripts/sync2.test.ts && node --no-warnings --experimental-strip-types scripts/room.test.ts && node --no-warnings --experimental-strip-types scripts/rooms.test.ts && node --no-warnings --experimental-strip-types scripts/recommend.test.ts && node --no-warnings --experimental-strip-types scripts/step07.test.ts && node --no-warnings --experimental-strip-types scripts/plan.test.ts && node --no-warnings --experimental-strip-types scripts/plan-editor.test.ts && node --no-warnings --experimental-strip-types scripts/importer.test.ts && node --no-warnings --experimental-strip-types scripts/perf.test.ts && node --no-warnings --experimental-strip-types scripts/scrub.test.ts && node --no-warnings --experimental-strip-types scripts/theme.test.ts && node --no-warnings --experimental-strip-types scripts/i18n.test.ts && node --no-warnings scripts/proxy.test.mjs && node --no-warnings scripts/image3d.test.mjs",
     "validate:models": "node scripts/validate-models.mjs",
     "doctor": "npx expo-doctor",
     "publish:models": "node scripts/publish-models.mjs",
@@ -21,7 +21,8 @@
     "build:android:dev": "eas build --profile development --platform android",
     "build:rooms": "node scripts/build-rooms.mjs",
     "build:blurhash": "node scripts/add-blurhash.mjs",
-    "test:components": "jest"
+    "test:components": "jest",
+    "models:from-photos": "node scripts/image-to-3d.mjs"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",

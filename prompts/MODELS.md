@@ -23,3 +23,17 @@ mechanical (orientation if rotated 90/180°, units if 100× off) and re-run.
 Do not change catalogue sizes to match a model. Upload approved files with the
 step-09 storage flow (or the admin dashboard), then run validate:models.
 ```
+
+
+## Making models from the product photos (built in)
+`scripts/image-to-3d.mjs` sends each product's photo to an image-to-3D service (Meshy is wired in), downloads the GLB, scales it to the listed
+height, stands it on the floor, centres it, shrinks textures, and reports OK or REVIEW (width/depth within 10 % of the listed size).
+```bash
+MESHY_API_KEY=... npm run models:from-photos -- --next 5          # shows the plan, spends nothing
+MESHY_API_KEY=... npm run models:from-photos -- --next 5 --yes    # generates (uses credits)
+npm run models:from-photos -- --normalise --yaw 90                 # a model faces sideways: turn it and re-check
+```
+It starts with the products used in the sample rooms, then sofas, beds and wardrobes. Task ids are saved so an interrupted run never pays twice.
+**What to expect:** one photo gives a plausible model with an invented back and sides; chairs sold as a set may come out as two chairs; proportions can be off (those go to REVIEW).
+Always review each model next to its photos in the admin dashboard (3D models, Upload for review) and reject the ones that look wrong. The service call follows
+the public docs but was not run against the live service from here: generate one model first and check it.

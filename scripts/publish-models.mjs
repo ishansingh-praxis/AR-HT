@@ -14,14 +14,17 @@ const BASE = process.env.MODEL_BASE_URL ?? 'https://CHANGE-ME.example.com/models
 const catPath = 'src/data/catalogue.json';
 const io = new NodeIO().registerExtensions(ALL_EXTENSIONS);
 
-export async function normalise(inFile, outFile, dims) {
+/** `yawDeg` turns a model that faces the wrong way (our convention: front = +z) before it is measured and scaled. */
+export async function normalise(inFile, outFile, dims, yawDeg = 0) {
   const doc = await io.read(inFile);
   const scene = doc.getRoot().listScenes()[0];
-  const { min, max } = getBounds(scene);
-  const s = dims.h / 100 / (max[1] - min[1]);
   const root = doc.createNode('root');
   for (const n of scene.listChildren()) { scene.removeChild(n); root.addChild(n); }
   scene.addChild(root);
+  const half = (yawDeg * Math.PI) / 360;
+  if (yawDeg) root.setRotation([0, Math.sin(half), 0, Math.cos(half)]);
+  const { min, max } = getBounds(scene); // measured after the turn, so width/depth swap correctly
+  const s = dims.h / 100 / (max[1] - min[1]);
   root.setScale([s, s, s]).setTranslation([-((min[0] + max[0]) / 2) * s, -min[1] * s, -((min[2] + max[2]) / 2) * s]);
   // Textures are usually most of a model's weight. Downscale to <=1024 px, keeping the original image format, so no
   // compression extension is needed and any glTF loader (including the AR library's) can read the result.
