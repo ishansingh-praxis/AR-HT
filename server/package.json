@@ -1,0 +1,37 @@
+{
+  "name": "hometown-ar-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/index.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "migrate": "node scripts/migrate.mjs",
+    "seed": "node scripts/seed.mjs",
+    "backup": "node scripts/backup.mjs",
+    "openapi": "node scripts/gen-openapi.mjs"
+  },
+  "dependencies": {
+    "@gltf-transform/core": "^4.3.0",
+    "@gltf-transform/extensions": "^4.3.0",
+    "@gltf-transform/functions": "^4.3.0",
+    "@sentry/node": "^11.4.0",
+    "bcryptjs": "^3.0.0",
+    "compression": "^1.8.2",
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.0",
+    "google-auth-library": "^11.1.0",
+    "helmet": "^8.0.0",
+    "jose": "^6.2.12",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "pino": "^10.4.0",
+    "pino-http": "^11.0.0",
+    "zod": "^4.0.0"
+  }
+}

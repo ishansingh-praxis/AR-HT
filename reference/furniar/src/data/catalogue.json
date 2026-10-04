@@ -1,0 +1,960 @@
+[
+ {
+  "id": "icon-velvet-3-seater-sofa-beige",
+  "sku": "'6000440810",
+  "name": "Icon Velvet 3 Seater Sofa Beige",
+  "category": "Living Room Furniture",
+  "role": "sofa",
+  "subcategory": "3 Seater Sofas",
+  "brand": "HomeTown",
+  "material": "Pinewood",
+  "description": "Icon Velvet 3 Seater Sofa Beige. Material: Pinewood",
+  "priceInr": 69590,
+  "compareAtInr": 139000,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440810_0.jpg?v=1788761884",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440810_00.jpg?v=1788761880",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440810_1-2.jpg?v=1788761888",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440810_1.jpg?v=1788761899",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440810_12.jpg?v=1788761892",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440810_1-1.jpg?v=1788761895"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 202,
+   "d": 89,
+   "h": 80
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Beige",
+    "hex": "#D8C8AC"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "living"
+  ],
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "maysville-glass-top-center-table-in-walnut-colour",
+  "sku": "'6000440499",
+  "name": "Maysville Glass Top Center Table in Walnut Colour",
+  "category": "Living Room Furniture",
+  "role": "coffee-table",
+  "subcategory": "Center Tables",
+  "brand": "HomeTown",
+  "material": "Engineered Wood",
+  "description": "Maysville Glass Top Center Table in Walnut Colour. Material: Engineered Wood",
+  "priceInr": 14490,
+  "compareAtInr": 17900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000085404_1.jpg?v=1764804571",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000085404_2.jpg?v=1764804572",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000085404_5.jpg?v=1764804575",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000085404_3.jpg?v=1764804574",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000085404_4.jpg?v=1764804577",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000085404_6.jpg?v=1764804579"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 120,
+   "d": 60,
+   "h": 45
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "living"
+  ],
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "concerto-tv-unit-light-grey",
+  "sku": "'830118567",
+  "name": "Concerto TV Unit Light Grey",
+  "category": "Living Room Furniture",
+  "role": "tv-unit",
+  "subcategory": "TV Units",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Concerto TV Unit Light Grey. Material: Engineered Wood",
+  "priceInr": 14900,
+  "compareAtInr": 79900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118567_20M1.png?v=1773992208",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118567_20M2.png?v=1773992208",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118567_20D1-06.png?v=1773992208",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Product_20Measurements_2001-10.png?v=1773992208",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118567_20P9.jpg?v=1773992208",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118567_20D1-04.png?v=1773992208"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 170,
+   "d": 40,
+   "h": 54
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "living"
+  ],
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "nixa-side-table",
+  "sku": "'6000436528",
+  "name": "Nixa Side Table",
+  "category": "Living Room Furniture",
+  "role": "side-table",
+  "subcategory": "Side & End Tables",
+  "brand": "HomeTown",
+  "material": "Metal",
+  "description": "Nixa Side Table. Material: Metal",
+  "priceInr": 7900,
+  "compareAtInr": 47900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/ChatGPTImageJun23_2025_05_11_33PM.png?v=1764805208",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/051A4256.jpg?v=1764805210",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/051A4250.jpg?v=1764805212",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/051A4246.jpg?v=1764805213",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/051A4249.jpg?v=1764805215",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/051A4252.jpg?v=1764805217"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 45,
+   "d": 45,
+   "h": 57
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "modern",
+   "minimal"
+  ],
+  "roomTypes": [
+   "living",
+   "study"
+  ],
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "jane-velvet-accent-chair-in-blue",
+  "sku": "'6000440724",
+  "name": "Jane Velvet Accent Chair in Blue",
+  "category": "Living Room Furniture",
+  "role": "chair",
+  "subcategory": "Accent Chairs",
+  "brand": "HomeTown",
+  "material": "Velvet",
+  "description": "Jane Velvet Accent Chair in Blue. Material: Velvet",
+  "priceInr": 17890,
+  "compareAtInr": 37900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440724_00.jpg?v=1787029486",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440724_0.jpg?v=1787029486",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440724_1-1.jpg?v=1787029486",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440724_1.jpg?v=1787029486",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440724_1-2.jpg?v=1787029486",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440724_3.jpg?v=1787029486"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 99,
+   "d": 72,
+   "h": 88
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Blue",
+    "hex": "#3F66A8"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "living"
+  ],
+  "family": "jane",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "jane-velvet-accent-chair-in-sea-beige",
+  "sku": "'6000440726",
+  "name": "Jane Velvet Accent Chair in Sea Beige",
+  "category": "Living Room Furniture",
+  "role": "chair",
+  "subcategory": "Accent Chairs",
+  "brand": "HomeTown",
+  "material": "Velvet",
+  "description": "Jane Velvet Accent Chair in Sea Beige. Material: Velvet",
+  "priceInr": 17890,
+  "compareAtInr": 37900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440726_00.jpg?v=1787030958",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440726_0.jpg?v=1787030958",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440726_1-1.jpg?v=1787030958",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440726_1.jpg?v=1787030958",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440726_3.jpg?v=1787030958",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440726_2.jpg?v=1787030958"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 99,
+   "d": 72,
+   "h": 88
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Beige",
+    "hex": "#D8C8AC"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "living"
+  ],
+  "family": "jane",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "nova-queen-bed-hydraulic-storage",
+  "sku": "'6000439335",
+  "name": "Nova Queen Size Bed with Hydraulic Storage in Wooden Finish",
+  "category": "Bedroom Furniture",
+  "role": "bed",
+  "subcategory": "Queen Beds",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Nova Queen Size Bed with Hydraulic Storage in Wooden Finish. Material: Engineered Wood",
+  "priceInr": 66390,
+  "compareAtInr": 157900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Gemini_Generated_Image_gucwjfgucwjfgucw.png?v=1775197559",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Gemini_Generated_Image_t71t6ht71t6ht71t.png?v=1775197566",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Gemini_Generated_Image_e49a4be49a4be49a.png?v=1775197562",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Home6Town-07.png?v=1775197586",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Gemini_Generated_Image_r1ily8r1ily8r1il_4070126c-19f6-4a45-8c14-51e84596971c.png?v=1775197569",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Gemini_Generated_Image_eksz3teksz3teksz_25d4287f-4aba-400e-8786-2ae30c3a9c6a.png?v=1775197573"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 163,
+   "d": 225,
+   "h": 120
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "contemporary"
+  ],
+  "roomTypes": [
+   "bedroom"
+  ],
+  "family": "nova",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "nova-night-stand",
+  "sku": "'6000439340",
+  "name": "Nova Night Stand",
+  "category": "Bedroom Furniture",
+  "role": "side-table",
+  "subcategory": "Bedside Tables",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Nova Night Stand. Material: Engineered Wood",
+  "priceInr": 10890,
+  "compareAtInr": 27900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/1_7ecec5c5-6c3f-4d51-b428-5b08f090bedc.png?v=1775199617",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/2_db073b84-3ae4-48d5-8889-ef9f4e0da316.png?v=1775199617",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/3_d73fb936-bd48-4470-b3e5-b967c7cb6bce.png?v=1775199617",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/9_5eb1b3fe-b781-40b2-8aa0-e2244707c2c6.png?v=1775199788",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/4_35e0772b-2218-46a6-991a-e79da5d9b0b3.png?v=1775199617",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/5_9e19f6bf-5590-4fd4-9f01-d810a3c8c018.png?v=1775199617"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 45,
+   "d": 40,
+   "h": 45
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "contemporary"
+  ],
+  "roomTypes": [
+   "bedroom"
+  ],
+  "family": "nova",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "nova-3-door-wardrobe",
+  "sku": "'6000439350",
+  "name": "Nova 3 Door Wardrobe",
+  "category": "Bedroom Furniture",
+  "role": "wardrobe",
+  "subcategory": "3 Door Wardrobes",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Nova 3 Door Wardrobe. Material: Engineered Wood",
+  "priceInr": 71090,
+  "compareAtInr": 172900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/1_a437222f-a64a-4bb7-ad90-11107b37fc6a.png?v=1775539765",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/3_60f5f925-ba75-4f7f-aecb-d6cf27ef18cd.png?v=1775539765",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Details-54_6c129210-8e2f-4810-add5-6c7126294250.png?v=1775539203",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Details-53.png?v=1775539207",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/2_e9dbe799-9d6c-420f-9692-c484d7aa0a88.png?v=1775539765",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/4_bfd6a752-5010-4f69-aa93-f0e18e51b91f.png?v=1775539765"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 120,
+   "d": 52,
+   "h": 210
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "contemporary"
+  ],
+  "roomTypes": [
+   "bedroom"
+  ],
+  "family": "nova",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "nova-dresser-with-full-length-mirror",
+  "sku": "'6000439346",
+  "name": "Nova Dresser with Full Length Mirror",
+  "category": "Bedroom Furniture",
+  "role": "storage",
+  "subcategory": "Dressing Tables",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Nova Dresser with Full Length Mirror. Material: Engineered Wood",
+  "priceInr": 32390,
+  "compareAtInr": 79900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/1_8aee254e-4ede-42fd-9a4e-4265f13aba6a.png?v=1775199557",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/2_e4158e71-0781-46fa-a741-a8b93350d6d2.png?v=1775199557",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/3_f8fc3ea9-7d86-488e-aacd-c33f7a915165.png?v=1775199557",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/dresser2_dimensions_swapped.png?v=1790751015",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6_c37bd3f5-cf01-4226-99a3-d59d1c998618.jpg?v=1775197675",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/4_919cfb4d-0750-4e4b-a085-e9ae544c5ac2.png?v=1775199557"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 75,
+   "d": 40,
+   "h": 193
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "contemporary"
+  ],
+  "roomTypes": [
+   "bedroom"
+  ],
+  "family": "nova",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "oren-sintered-stone-6-seater-dinning-table",
+  "sku": "'830118500",
+  "name": "Oren Sintered Stone 6 Seater Dinning Table",
+  "category": "Dining Room Furniture",
+  "role": "dining-table",
+  "subcategory": "6 Seater Dining Tables",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Oren Sintered Stone 6 Seater Dinning Table. Material: Engineered Wood",
+  "priceInr": 52790,
+  "compareAtInr": 143900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118500_0.jpg?v=1782996856",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118500_00.jpg?v=1782996860",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118500_3.jpg?v=1782996866",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118500_1.jpg?v=1782996863",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118500_4.jpg?v=1782996870",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118500_5.jpg?v=1782996873"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 180,
+   "d": 90,
+   "h": 76
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Black",
+    "hex": "#222222"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "dining"
+  ],
+  "family": "oren",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "oren-dinning-chair-set-of-2-beige",
+  "sku": "'830118501",
+  "name": "Oren Dining Chair Set of 2 Beige",
+  "category": "Dining Room Furniture",
+  "role": "chair",
+  "subcategory": "Dining Chairs",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Oren Dining Chair Set of 2 Beige. Material: Engineered Wood",
+  "priceInr": 14600,
+  "compareAtInr": 51900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118501_20M1.png?v=1773813832",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Product_20mockup_203.png?v=1773815095",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118501_20M2.png?v=1773815095",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118501_20D1-04_8613a96f-cff6-4f3c-8164-402bfef20b5b.png?v=1773815095",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118501_20M5.png?v=1773815095",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/830118501_20M4.png?v=1773815095"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 57,
+   "d": 49,
+   "h": 92
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Black",
+    "hex": "#222222"
+   }
+  ],
+  "styles": [
+   "modern"
+  ],
+  "roomTypes": [
+   "dining"
+  ],
+  "setSize": 2,
+  "family": "oren",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "scholarhub-study-table",
+  "sku": "'6000440605",
+  "name": "Scholarhub Study Table",
+  "category": "Living Room Furniture",
+  "role": "desk",
+  "subcategory": "Study Tables",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Scholarhub Study Table. Material: Engineered Wood",
+  "priceInr": 7390,
+  "compareAtInr": 14999,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440605_0.jpg?v=1786099368",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440605_00.jpg?v=1786099372",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440605_1-1.jpg?v=1786099375",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440605_1.jpg?v=1786099379",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440605_3.jpg?v=1786099382",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440605_4.jpg?v=1786099385"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 116,
+   "d": 57,
+   "h": 73
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "minimal"
+  ],
+  "roomTypes": [
+   "study"
+  ],
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "velmont-bookshelf",
+  "sku": "'6000440576",
+  "name": "Velmont Bookshelf",
+  "category": "Office Furniture",
+  "role": "storage",
+  "subcategory": "",
+  "brand": "Hometown",
+  "material": "Engineered Wood",
+  "description": "Velmont Bookshelf. Material: Engineered Wood",
+  "priceInr": 6390,
+  "compareAtInr": 12999,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440576_0.jpg?v=1786098879",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440576_00.jpg?v=1786098883",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440576_1-1.jpg?v=1786098886",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440576_1.jpg?v=1786098889",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440576_3.jpg?v=1786098892",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440576_4.jpg?v=1786098896"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 60,
+   "d": 60,
+   "h": 141
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "minimal"
+  ],
+  "roomTypes": [
+   "study"
+  ],
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "mio-dinning-chair-set-of-2",
+  "sku": "'830118751",
+  "name": "Mio Dining Chair Set of 2",
+  "category": "Dining Room Furniture",
+  "role": "chair",
+  "subcategory": "Dining Chairs",
+  "brand": "Hometown",
+  "material": "Solid Wood",
+  "description": "Mio Dining Chair Set of 2. Material: Solid Wood",
+  "priceInr": 11900,
+  "compareAtInr": 42900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/1_e1042109-49a5-4ee9-be0d-8b63f60bd060.png?v=1775540350",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/2_d1404f3a-bdf9-49a9-8276-74771490b336.png?v=1775540350",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6_970647d5-4157-4887-89d8-2c50ba4dcdc0.png?v=1775540350",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/Product_20Details-16.png?v=1775538326",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/5_542d8a09-7162-4296-9805-d0bc20da1231.png?v=1775540350",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/4_81e7193d-2d3d-419c-a491-3a87be2874a8.png?v=1775540350"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 46,
+   "d": 46,
+   "h": 99
+  },
+  "dimsConfidence": "high",
+  "colors": [
+   {
+    "name": "Brown",
+    "hex": "#7A5230"
+   }
+  ],
+  "styles": [
+   "minimal"
+  ],
+  "roomTypes": [
+   "study"
+  ],
+  "setSize": 2,
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "charm-velvet-arm-chair-in-dark-grey-colour-copy",
+  "sku": "'6000440670",
+  "name": "Charm Velvet Accent Chair in Grey",
+  "category": "Furniture",
+  "role": "chair",
+  "subcategory": "Accent Chairs",
+  "brand": "HomeTown",
+  "material": "Velvet",
+  "description": "Charm Velvet Accent Chair in Grey. Material: Velvet",
+  "priceInr": 36490,
+  "compareAtInr": 64900,
+  "images": [
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440670_00.jpg?v=1787898794",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440670_0.jpg?v=1787898793",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440670_1-1.jpg?v=1787898793",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440670_1.jpg?v=1787898793",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440670_3.jpg?v=1787898793",
+   "https://cdn.shopify.com/s/files/1/0832/4559/6951/files/6000440670_2.jpg?v=1787898793"
+  ],
+  "modelStatus": "proxy",
+  "dimensionsCm": {
+   "w": 99,
+   "d": 69,
+   "h": 106
+  },
+  "dimsConfidence": "high",
+  "colors": [],
+  "styles": [
+   "minimal"
+  ],
+  "roomTypes": [
+   "study"
+  ],
+  "family": "charm",
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "source": "hometown"
+ },
+ {
+  "id": "sofa-velvet",
+  "name": "Glam Velvet Sofa",
+  "category": "Sofa",
+  "subcategory": "3-seater",
+  "brand": "Demo Atelier",
+  "description": "Deep-seated three-seater in soft velvet with a low, relaxed profile.",
+  "price": 42999,
+  "discountPrice": 38999,
+  "currency": "INR",
+  "images": [
+   "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/GlamVelvetSofa/screenshot/screenshot.jpg"
+  ],
+  "model3D": {
+   "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/GlamVelvetSofa/glTF-Binary/GlamVelvetSofa.glb",
+   "version": 1,
+   "unit": "m"
+  },
+  "dimensionsCm": {
+   "w": 219,
+   "d": 102,
+   "h": 79
+  },
+  "weightKg": 48,
+  "material": "Velvet, hardwood frame",
+  "colors": [
+   {
+    "name": "Plum",
+    "hex": "#5B2A4E"
+   }
+  ],
+  "stock": 12,
+  "rating": {
+   "average": 4.5,
+   "count": 128
+  },
+  "deliveryInfo": {
+   "estimateDays": 7,
+   "installation": true
+  },
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "role": "sofa",
+  "modelStatus": "ready",
+  "source": "demo",
+  "styles": [],
+  "roomTypes": [
+   "living"
+  ],
+  "dimsConfidence": "high"
+ },
+ {
+  "id": "sofa-leather",
+  "name": "Wood & Leather Sofa",
+  "category": "Sofa",
+  "subcategory": "3-seater",
+  "brand": "Demo Atelier",
+  "description": "Mid-century sofa with a solid wood frame and sheen leather cushions.",
+  "price": 54999,
+  "currency": "INR",
+  "images": [
+   "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/screenshot/screenshot.jpg"
+  ],
+  "model3D": {
+   "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/glTF-Binary/SheenWoodLeatherSofa.glb",
+   "version": 1,
+   "unit": "m"
+  },
+  "dimensionsCm": {
+   "w": 273,
+   "d": 92,
+   "h": 112
+  },
+  "weightKg": 62,
+  "material": "Leather, solid wood",
+  "colors": [
+   {
+    "name": "Tan",
+    "hex": "#A0673A"
+   }
+  ],
+  "stock": 4,
+  "rating": {
+   "average": 4.3,
+   "count": 76
+  },
+  "deliveryInfo": {
+   "estimateDays": 10,
+   "installation": true
+  },
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "role": "sofa",
+  "modelStatus": "ready",
+  "source": "demo",
+  "styles": [],
+  "roomTypes": [
+   "living"
+  ],
+  "dimsConfidence": "high"
+ },
+ {
+  "id": "chair-sheen",
+  "name": "Sheen Accent Chair",
+  "category": "Chair",
+  "subcategory": "Accent chair",
+  "brand": "Demo Atelier",
+  "description": "Compact accent chair with a soft sheen fabric finish.",
+  "price": 12999,
+  "currency": "INR",
+  "images": [
+   "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/screenshot/screenshot.jpg"
+  ],
+  "model3D": {
+   "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb",
+   "version": 1,
+   "unit": "m"
+  },
+  "dimensionsCm": {
+   "w": 83,
+   "d": 57,
+   "h": 69
+  },
+  "weightKg": 9,
+  "material": "Fabric, beech legs",
+  "colors": [
+   {
+    "name": "Rose",
+    "hex": "#C98B9B"
+   }
+  ],
+  "stock": 25,
+  "rating": {
+   "average": 4.6,
+   "count": 241
+  },
+  "deliveryInfo": {
+   "estimateDays": 5,
+   "installation": false
+  },
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "role": "chair",
+  "modelStatus": "ready",
+  "source": "demo",
+  "styles": [],
+  "roomTypes": [
+   "living"
+  ],
+  "dimsConfidence": "high"
+ },
+ {
+  "id": "chair-damask",
+  "name": "Damask Armchair",
+  "category": "Chair",
+  "subcategory": "Armchair",
+  "brand": "Demo Atelier",
+  "description": "Classic armchair in purple and gold damask upholstery.",
+  "price": 18499,
+  "discountPrice": 16999,
+  "currency": "INR",
+  "images": [
+   "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ChairDamaskPurplegold/screenshot/screenshot.jpg"
+  ],
+  "model3D": {
+   "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ChairDamaskPurplegold/glTF-Binary/ChairDamaskPurplegold.glb",
+   "version": 1,
+   "unit": "m"
+  },
+  "dimensionsCm": {
+   "w": 83,
+   "d": 57,
+   "h": 69
+  },
+  "weightKg": 11,
+  "material": "Damask fabric, mahogany",
+  "colors": [
+   {
+    "name": "Purple & gold",
+    "hex": "#6C4A8E"
+   }
+  ],
+  "stock": 0,
+  "rating": {
+   "average": 4.2,
+   "count": 57
+  },
+  "deliveryInfo": {
+   "estimateDays": 6,
+   "installation": false
+  },
+  "ar": {
+   "placements": [
+    "floor"
+   ]
+  },
+  "role": "chair",
+  "modelStatus": "ready",
+  "source": "demo",
+  "styles": [],
+  "roomTypes": [
+   "living"
+  ],
+  "dimsConfidence": "high"
+ }
+]

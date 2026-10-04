@@ -1,0 +1,440 @@
+{
+  "aR": {
+    "backUpYourDesigns": "Back up your designs?",
+    "signInToKeep": "Sign in to keep your designs safe and use them on other phones. It is optional."
+  },
+  "aRScreenGate": {
+    "arUnavailable": "AR unavailable",
+    "arNeedsADevelopment": "AR needs a development build (ARCore/ARKit). It is not available in Expo Go."
+  },
+  "forgotPassword": {
+    "email": "Email",
+    "resetYourPassword": "Reset your password",
+    "enterYourEmailIf": "Enter your email. If there is an account for it, we will send a 6-digit code."
+  },
+  "resetPassword": {
+    "6DigitCode": "6-digit code",
+    "newPassword8Characters": "New password (8+ characters)",
+    "passwordChanged": "Password changed",
+    "signInWithYour": "Sign in with your new password. Other phones have been signed out.",
+    "chooseANewPassword": "Choose a new password"
+  },
+  "signIn": {
+    "password": "Password",
+    "forgotPassword": "Forgot password",
+    "createAccount": "Create account",
+    "backUpYourDesigns": "Back up your designs and saved furniture, and bring them to your other phones. The app works fully without an account.",
+    "forgotPassword2": "Forgot password?"
+  },
+  "signUp": {
+    "nameOptional": "Name (optional)",
+    "password8CharactersNot": "Password (8+ characters, not a common one)",
+    "iAlreadyHaveAn": "I already have an account",
+    "weWillEmailYou": "We will email you a 6-digit code to confirm your address."
+  },
+  "socialButtons": {
+    "continueWithApple": "Continue with Apple"
+  },
+  "verifyEmail": {
+    "notNow": "Not now",
+    "checkYourEmail": "Check your email",
+    "youCanUseThe": "You can use the app without verifying. Cloud backup starts once your email is confirmed."
+  },
+  "designs": {
+    "designName": "Design name",
+    "ar": "AR",
+    "plan": "Plan",
+    "rename": "Rename",
+    "share": "Share",
+    "delete": "Delete",
+    "deleteDesign": "Delete design?",
+    "myDesignsAndSample": "My designs and sample rooms",
+    "noSavedDesignsYet": "No saved designs yet. Place furniture in AR and tap Save.",
+    "savedFurniture": "Saved furniture",
+    "tapTheHeartOn": "Tap the heart on a piece to keep it here.",
+    "open": "Open {{name}}",
+    "photoOf": "Photo of {{name}}",
+    "synced": "Backed up",
+    "pending": "Waiting to back up",
+    "local": "On this phone only"
+  },
+  "item": {
+    "planView": "Plan view",
+    "viewInMyRoom": "View in my room",
+    "viewOnHometown": "View on HomeTown",
+    "thisItemIsNo": "This item is no longer available.",
+    "realSizeWD": "Real size (W × D × H)",
+    "otherColoursConfigurations": "Other colours / configurations",
+    "thisPhoneDoesNot": "This phone does not support AR, so you can place the piece on a to-scale plan of your room instead.",
+    "inArThisIs": "In AR this is shown as a simplified shape at the real size, to check fit and layout. It is not a realistic model of the product.",
+    "show": "Show {{name}}"
+  },
+  "library": {
+    "searchFurniture": "Search furniture",
+    "showOnlyArReady": "Show only AR ready pieces",
+    "arReady": "AR ready",
+    "noFurnitureMatchesClear": "No furniture matches. Clear the search to see more.",
+    "badgeDemo": "Demo model",
+    "badgeReady": "AR ready",
+    "badgeShape": "AR · simplified shape",
+    "badgeReview": "Size under review"
+  },
+  "plan": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "copy": "Copy",
+    "saveDesign": "Save design",
+    "openInAr": "Open in AR",
+    "designSaved": "Design saved",
+    "itIsInYour": "It is in your Saved tab, where you can share it or open it in AR.",
+    "suggested": "Suggested",
+    "allFurniture": "All furniture",
+    "pieces": "Pieces",
+    "moveNorth": "Move north",
+    "moveSouth": "Move south",
+    "moveWest": "Move west",
+    "moveEast": "Move east",
+    "turnRight": "Turn 90 degrees right",
+    "turnLeft": "Turn 90 degrees left",
+    "removePiece": "Remove piece",
+    "canvasTitle": "Plan of your room, {{w}} by {{d}} centimetres",
+    "canvasLabel": "Room plan, {{w}} by {{d}} centimetres. Use the list below to move pieces with a screen reader.",
+    "statusNarrow": "A gap under 60 cm between big pieces is hard to walk through.",
+    "statusGood": "Looks good. Drag a piece to move it.",
+    "statusEmpty": "Add a piece to start.",
+    "closeList": "Close list",
+    "addPiece": "Add piece",
+    "stayHere": "Stay here",
+    "goToSaved": "Go to Saved"
+  },
+  "roomDetail": {
+    "openInPlanView": "Open in plan view",
+    "tryInMyRoom": "Try in my room",
+    "thisRoomIsNo": "This room is no longer available.",
+    "piecesInThisRoom": "Pieces in this room"
+  },
+  "settings": {
+    "standard": "Standard",
+    "high": "High",
+    "changeRoom": "Change room",
+    "openPhoneSettings": "Open phone settings",
+    "shareAnonymousUsage": "Share anonymous usage",
+    "arQuality": "AR quality",
+    "yourRoom": "Your room",
+    "changeTheRoomType": "Change the room type or size used for suggestions.",
+    "cameraHelp": "Camera help",
+    "usageData": "Usage data",
+    "shareAnonymousUsageWhich": "Share anonymous usage (which screens and features are used: ids and numbers only, never camera images or room shapes).",
+    "autoChose": "We chose {{quality}} for this phone.",
+    "backupPhotos": "Back up design photos: a picture of your room is uploaded with each saved design. Off by default. A design's photo is also uploaded when you share it.",
+    "backupPhotosLabel": "Back up design photos"
+  },
+  "sharedDesign": {
+    "loadingSharedDesign": "Loading shared design",
+    "saveACopy": "Save a copy",
+    "saved": "Saved",
+    "aCopyIsIn": "A copy is in your Saved tab."
+  },
+  "welcome": {
+    "browseRooms": "Browse rooms",
+    "seeItInYour": "See it in your room before you decide.",
+    "placeTrueToSize": "Place true-to-size furniture in your space with your camera, try curated rooms, and get suggestions that fit.",
+    "whatAreYouDesigning": "What are you designing?",
+    "howBigIsIt": "How big is it?",
+    "theCameraIsOnly": "The camera is only used on your phone to measure and place furniture. Camera images never leave it.",
+    "sizeSmall": "Small · about {{area}} m²",
+    "sizeMedium": "Medium · about {{area}} m²",
+    "sizeLarge": "Large · about {{area}} m²",
+    "noAr": "This phone cannot do AR, so you will draw your room on a plan instead.",
+    "scanNote": "A camera scan replaces this guess with measured numbers.",
+    "planRoom": "Plan my room",
+    "scanRoom": "Scan my room"
+  },
+  "accountSection": {
+    "enterCode": "Enter code",
+    "syncStatus": "Sync status",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "deleteAllData": "Delete all data?",
+    "areYouAbsolutelySure": "Are you absolutely sure?",
+    "lastChanceEverythingWill": "Last chance: everything will be gone for good.",
+    "done": "Done",
+    "yourDataWasDeleted": "Your data was deleted.",
+    "couldNotDeleteYour": "Could not delete your account",
+    "signOut2": "Sign out?",
+    "yourDesignsStayOn": "Your designs stay on this phone.",
+    "verifyYourEmailTo": "Verify your email to back up your designs to the cloud.",
+    "accountOptional": "Account (optional)",
+    "cloudSavingIsNot": "Cloud saving is not set up for this build. Designs stay on this phone.",
+    "youAreUsingThe": "You are using the app as a guest, which works fully. Sign in to back up designs and use them on other phones.",
+    "yourData": "Your data"
+  },
+  "errorBoundary": {
+    "tryAgain": "Try again",
+    "somethingWentWrong": "Something went wrong",
+    "thisScreenHitA": "This screen hit a problem. Your designs are safe."
+  },
+  "fitCalculator": {
+    "freeWidthInCentimetres": "Free width in centimetres",
+    "willItFit": "Will it fit?"
+  },
+  "product360": {
+    "rotating3dViewOf": "Rotating 3D view of the product"
+  },
+  "ui": {
+    "hometownLogo": "HomeTown logo",
+    "removeSaved": "Remove from saved furniture",
+    "saveForLater": "Save for later"
+  },
+  "bottomSheet": {
+    "markWall": "Mark wall",
+    "save": "Save",
+    "photo": "Photo",
+    "flipWallSide": "Flip wall side",
+    "clearWall": "Clear wall",
+    "clearRoom": "Clear room",
+    "markCorner": "Mark corner",
+    "skip": "Skip",
+    "cancel": "Cancel",
+    "turnLayout90": "Turn layout 90°",
+    "dragToMoveTwist": "Drag to move · twist to rotate · pinch to resize (80–125%)"
+  },
+  "permissionGate": {
+    "openSettings": "Open settings",
+    "back": "Back",
+    "hometownUsesTheCamera": "HomeTown uses the camera to show furniture in your room. Nothing is recorded unless you take a photo or video.",
+    "starting": "Starting camera…",
+    "needed": "Camera access is needed"
+  },
+  "statusBanner": {
+    "removePiecesThatFailed": "Remove pieces that failed to load",
+    "remove": "Remove"
+  },
+  "topBar": {
+    "close": "Close",
+    "stop": "Stop",
+    "record": "Record"
+  },
+  "offlineBanner": {
+    "youAreOfflineEverything": "You are offline. Everything still works; backups resume when you are back online."
+  },
+  "coachingOverlay": {
+    "moveThePhoneSlowly": "Move the phone slowly side to side, pointing at the floor in good light."
+  },
+  "suggestionChips": {
+    "placeAPieceAnd": "Place a piece and suggestions that go with it appear here."
+  },
+  "pieceList": {
+    "noPiecesYetAdd": "No pieces yet. Add one with the buttons above."
+  },
+  "sheet": {
+    "rescan": "Re-scan",
+    "scanRoom": "Scan room",
+    "thinking": "Thinking…",
+    "aiLayout": "AI layout",
+    "working": "Working…",
+    "pinToRoom": "Pin to room",
+    "addWallPoint": "Add wall point ({{n}}/2)",
+    "placeSampleRoom": "Place sample room {{title}}",
+    "tabSuggested": "Suggested",
+    "tabAll": "All",
+    "tabRooms": "Rooms",
+    "tabTools": "Tools"
+  },
+  "coaching": {
+    "lost": "Lost your place",
+    "scanFloor": "Scan your floor"
+  },
+  "picker": {
+    "category": "Category {{name}}",
+    "all": "All",
+    "select": "Select {{name}}"
+  },
+  "selection": {
+    "option": "Option: {{name}}",
+    "pairsWith": "Pairs with: {{name}}",
+    "swap": "Swap: {{name}}"
+  },
+  "suggestions": {
+    "select": "Select {{name}}. {{reason}}"
+  },
+  "capture": {
+    "myRoomDesign": "My room design",
+    "videoSaved": "Video saved to Photos",
+    "videoFailed": "Could not save video"
+  },
+  "designIO": {
+    "noSuggestions": "No usable suggestions this time.",
+    "anchorNotAuthorized": "Cloud anchors are not set up in this build (check the ReactVision key).",
+    "anchorMoveMore": "Move around the room more so the phone sees enough of it, then try again.",
+    "anchorQuota": "The cloud-anchor quota is used up. Try again later.",
+    "hostingFailed": "Hosting failed.",
+    "findRoomPlace": "Find my room & place",
+    "placeAtReference": "Place at reference points",
+    "placeRoom": "Place {{title}}",
+    "placeLayout": "Place layout",
+    "layoutReadyBody": "{{count}} pieces around {{name}}. Aim at the floor and tap Place layout.",
+    "placeAnyway": "Place anyway"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "checkConnection": "Check your connection and try again.",
+    "continue": "Continue",
+    "notNow": "Not now",
+    "wentWrong": "Something went wrong. Try again."
+  },
+  "scan": {
+    "tooSmallBody": "The marked area is under {{area}} m². Undo and mark the real floor corners.",
+    "scannedBody": "{{w}} × {{d}} m · {{area}} m².",
+    "notRectangle": "This room is not a simple rectangle, so layouts are fitted to its bounding box. Check walkways by eye.",
+    "tip": "Tip: start the scan from the same corner next time to restore a saved design here."
+  },
+  "placement": {
+    "limitBody": "Up to {{max}} pieces can be placed at once so the camera stays smooth. Delete one to add another.",
+    "limitShort": "Up to {{max}} pieces can be placed at once."
+  },
+  "account": {
+    "syncing": "Syncing…",
+    "lastSynced": "Last synced {{when}}",
+    "nothingWaiting": "nothing waiting",
+    "changesWaiting_one": "{{count}} change waiting",
+    "changesWaiting_other": "{{count}} changes waiting",
+    "syncNow": "Sync now",
+    "deleteBodySignedIn": "This deletes your account, saved designs and saved furniture from our server and from this phone. It cannot be undone.",
+    "deleteBodyGuest": "This deletes every saved design and setting on this phone. It cannot be undone.",
+    "deleting": "Deleting…",
+    "deleteMyData": "Delete my data",
+    "keepData": "Keep my data",
+    "deleteEverything": "Delete everything"
+  },
+  "fit": {
+    "placeholderWall": "Free width in cm (your longest wall: {{cm}})",
+    "placeholder": "Free width in cm",
+    "enter": "Enter the free width to check.",
+    "fitsWall": "Fits along your longest wall ({{m}} m).",
+    "fits": "Fits, with {{cm}} cm to spare.",
+    "tight": "Tight: only {{cm}} cm spare in total.",
+    "tooWide": "Too wide by {{cm}} cm.",
+    "footprint": "Footprint {{piece}} m² of about {{floor}} m² floor."
+  },
+  "p360": {
+    "drag": "Drag to turn it around",
+    "photoWrap": "360° preview: true size, product photo wrapped on",
+    "shape": "Simplified shape at real size",
+    "tab360": "360° view",
+    "tabPhotos": "Photos ({{count}})",
+    "label360": "360 degree view",
+    "labelPhotos": "Photos",
+    "photoLabel": "{{name}}, photo {{n}} of {{total}}"
+  },
+  "roomPlan": {
+    "room": "Plan of {{title}}, {{w}} by {{d}} centimetres",
+    "design": "Plan of your design, {{w}} by {{d}} centimetres"
+  },
+  "nav": {
+    "plan": "Plan view",
+    "shared": "Shared design",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "verify": "Verify email",
+    "forgot": "Forgot password",
+    "reset": "New password",
+    "room": "Room"
+  },
+  "ar": {
+    "qualityDropped": "The camera view was slowing down, so AR quality was switched to Standard.",
+    "statusScan": "Scan: aim at a floor corner and tap Mark corner ({{n}} marked, need 3+).",
+    "statusWall": "Tap where the wall meets the floor: one end, then the other ({{n}}/2).",
+    "statusOverlap": "Pieces overlap. Drag one clear of the red outline.",
+    "statusNarrow": "Gap under 60 cm between pieces. Hard to walk through: consider moving one.",
+    "statusLost": "Tracking lost. Point back at where you were and move slowly.",
+    "statusPlacing": "Floor found. Placing {{name}}…",
+    "yourPiece": "your piece",
+    "statusFound": "Floor found. Aim the dot where you want it.",
+    "statusScanFloor": "Move your phone slowly to scan the floor.",
+    "roomLine": "Room {{w}} × {{d}} m · {{area}} m² · {{free}} m² free",
+    "simplifiedShape": "simplified shape",
+    "sizePercent": "{{pct}}% size",
+    "placeProduct": "Place {{name}}",
+    "furniture": "furniture"
+  },
+  "auth": {
+    "sending": "Sending…",
+    "sendCode": "Send code",
+    "saving": "Saving…",
+    "changePassword": "Change password",
+    "signingIn": "Signing in…",
+    "creating": "Creating…",
+    "google": "Continue with Google",
+    "apple": "Continue with Apple",
+    "newCode": "A new code is on its way.",
+    "checking": "Checking…",
+    "verify": "Verify",
+    "resendIn": "Send a new code ({{s}}s)",
+    "resend": "Send a new code"
+  },
+  "rooms": {
+    "fits": "Fits your scanned room",
+    "largerScanned": "Larger than your scanned room",
+    "larger": "Larger than your room",
+    "showType": "Show {{type}} rooms"
+  },
+  "shared": {
+    "openFailed": "Could not open this link.",
+    "gone": "This shared design is no longer available. The owner may have stopped sharing it."
+  },
+  "tabs": {
+    "library": "Library",
+    "rooms": "Rooms",
+    "saved": "Saved",
+    "settings": "Settings"
+  },
+  "useCapture": {
+    "couldNotTakePhoto": "Could not take photo",
+    "checkPhotoPermissionsAnd": "Check photo permissions and try again.",
+    "recordingFailed": "Recording failed",
+    "checkStorageAndMicrophone": "Check storage and microphone permissions."
+  },
+  "useDesignIO": {
+    "cloudAnchorsUnavailable": "Cloud anchors unavailable",
+    "thisBuildHasNo": "This build has no cloud-anchor setup.",
+    "couldNotFindYour": "Could not find your room yet",
+    "lookSlowlyAroundThe": "Look slowly around the room where you pinned this (walls, floor, furniture edges) and tap again.",
+    "couldNotReachThe": "Could not reach the cloud-anchor service",
+    "scanTheRoomFirst": "Scan the room first",
+    "tapScanThenMark": "Tap Scan, then Mark corner at the same room corner you used when you saved, and again further along a wall. Then tap Place layout.",
+    "biggerThanYourRoom": "Bigger than your room",
+    "thisSampleRoomIs": "This sample room is larger than the room you scanned. Place it anyway?",
+    "nothingToSave": "Nothing to save",
+    "placeAtLeastOne": "Place at least one piece first.",
+    "designSavedWithReference": "Design saved with reference points",
+    "toBringItBack": "To bring it back to the same spot, open it, tap Scan and mark the same room corner first, then a point along a wall. Accuracy is a few centimetres.",
+    "findItUnderSaved": "Find it under Saved. Reopening places it around the spot you aim at. To bring it back to the exact spot, scan the room (Tools, then Scan) before saving.",
+    "layoutReady": "Layout ready",
+    "couldNotSuggestA": "Could not suggest a layout",
+    "nothingToPin": "Nothing to pin",
+    "placeAtLeastOne2": "Place at least one piece on the floor first.",
+    "notReadyToPin": "Not ready to pin",
+    "scanTheFloorAround": "Scan the floor around your furniture for about 30 seconds, then try again.",
+    "pinnedToThisRoom": "Pinned to this room",
+    "openItFromSaved": "Open it from Saved next time and tap \"Find my room & place\" while looking around the room. It is kept for 30 days.",
+    "couldNotPinThe": "Could not pin the design"
+  },
+  "usePlacement": {
+    "thatIsALot": "That is a lot of furniture",
+    "markTheWallFirst": "Mark the wall first",
+    "openToolsTapMark": "Open Tools, tap Mark wall, then Add wall point where the wall meets the floor at one end, and again at the other end. Then aim near the wall and place."
+  },
+  "useScan": {
+    "markAtLeast3": "Mark at least 3 corners",
+    "standAtTheRoom": "Stand at the room edge and tap Mark corner at each floor corner, going around the room.",
+    "thatRoomLooksToo": "That room looks too small",
+    "roomScanned": "Room scanned"
+  },
+  "usePlan": {
+    "addAtLeastOne": "Add at least one piece first."
+  },
+  "share": {
+    "couldNotShare": "Could not share"
+  }
+}

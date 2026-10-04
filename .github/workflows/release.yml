@@ -1,0 +1,40 @@
+name: release
+# Tag v1.2.3 -> run every check, build the store binaries on EAS (both platforms), submit them to the internal testing tracks.
+on:
+  push:
+    tags: ['v*']
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - run: npm run check
+      - run: npm ci
+        working-directory: admin
+      - run: npm run typecheck && npm test && npm run build
+        working-directory: admin
+      - run: npm ci
+        working-directory: server
+      - run: npm test
+        working-directory: server
+  mobile:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}          # Expo access token (expo.dev -> Settings -> Access tokens)
+      - run: npm ci
+      # API URL, share domain, Sentry DSN and the rest come from EAS environment variables (eas env:create, environment "production").
+      - run: eas build --profile production --platform all --non-interactive --wait
+      # Play: internal testing track (draft). Needs a Google service account key configured once with `eas credentials`.
+      - run: eas submit --profile production --platform android --latest --non-interactive
+      # App Store: TestFlight. Needs the App Store Connect API key configured once with `eas credentials`.
+      - run: eas submit --profile production --platform ios --latest --non-interactive

@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "FurniAR",
+    "slug": "furni-ar",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "ios": { "bundleIdentifier": "com.example.furniar", "supportsTablet": false },
+    "android": { "package": "com.example.furniar" },
+    "plugins": [
+      "expo-dev-client",
+      ["expo-build-properties", { "android": { "usesCleartextTraffic": true } }],
+      [
+        "@reactvision/react-viro",
+        {
+          "provider": "none",
+          "android": { "xRMode": ["AR"] },
+          "ios": {
+            "cameraUsagePermission": "FurniAR uses the camera to place furniture in your room.",
+            "savePhotosPermission": "FurniAR saves your room screenshots to Photos."
+          }
+        }
+      ]
+    ]
+  }
+}

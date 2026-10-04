@@ -1,0 +1,21 @@
+# Render blueprint: one web service with a persistent disk (SQLite + uploads). Build context is the repo root.
+services:
+  - type: web
+    name: hometown-ar-api
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    plan: starter            # a persistent disk needs a paid instance
+    healthCheckPath: /ready
+    preDeployCommand: node scripts/migrate.mjs   # schema migrations before the new version takes traffic
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 5
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PUBLIC_URL
+        sync: false          # set to https://<your service>.onrender.com after the first deploy
+      - key: ANTHROPIC_API_KEY
+        sync: false

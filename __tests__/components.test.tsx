@@ -1,0 +1,138 @@
+import React from 'react';
+import { fireEvent, render, screen, act } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LibraryScreen from '../src/screens/LibraryScreen';
+import ItemScreen from '../src/screens/ItemScreen';
+import DesignsScreen from '../src/screens/DesignsScreen';
+import WelcomeScreen from '../src/screens/WelcomeScreen';
+import { useRooms } from '../src/store/roomStore';
+import { useWishlist } from '../src/store/wishlistStore';
+import { useSettings } from '../src/store/settingsStore';
+import { useCatalogue } from '../src/store/catalogueStore';
+import { t } from '../src/i18n';
+
+const Stack = createNativeStackNavigator();
+/** Renders one screen inside a real navigator (the screens call useNavigation). */
+async function renderScreen(Component: React.ComponentType<any>, params?: object) {
+  return await render(
+    <NavigationContainer>
+      <Stack.Navigator><Stack.Screen name="Test" component={Component} initialParams={params} /></Stack.Navigator>
+    </NavigationContainer>,
+  );
+}
+const products = () => useCatalogue.getState().products;
+const placeableSofa = () => products().find((p) => p.role === 'sofa' && !p.sizeReview && p.proxy)!;
+
+beforeEach(() => {
+  useRooms.setState({ designs: [], roomType: 'Living room' });
+  useWishlist.setState({ items: [] });
+  useSettings.setState({ onboarded: false, scanned: null, preset: 'unknown', arSupported: true });
+});
+
+describe('Library', () => {
+  it('lists the catalogue and filters by search text', async () => {
+    await renderScreen(LibraryScreen);
+    const total = products().length;
+    expect(screen.getByText(`${total} pieces`)).toBeTruthy();
+    await fireEvent.changeText(screen.getByLabelText(t('library.searchFurniture')), 'zzzz-no-such-product');
+    expect(screen.getByText(t('library.noFurnitureMatchesClear'))).toBeTruthy();
+    expect(screen.getByText('0 pieces')).toBeTruthy();
+    await fireEvent.changeText(screen.getByLabelText(t('library.searchFurniture')), placeableSofa().name.split(' ')[0]);
+    const n = products().filter((p) => p.name.toLowerCase().includes(placeableSofa().name.split(' ')[0].toLowerCase())).length;
+    expect(screen.getByText(`${n} pieces`)).toBeTruthy();
+  });
+
+  it('filters by category and selects the chip', async () => {
+    await renderScreen(LibraryScreen);
+    const chip = screen.getByLabelText(t('picker.category', { name: 'Sofa' }));
+    await fireEvent.press(chip);
+    const sofas = products().filter((p) => p.category === 'Sofa').length;
+    expect(screen.getByText(`${sofas} pieces`)).toBeTruthy();
+    expect(screen.getByLabelText(t('picker.category', { name: 'Sofa' })).props.accessibilityState.selected).toBe(true);
+  });
+});
+
+describe('Item: "Will it fit?"', () => {
+  it('says too wide, then fits, as the free width changes', async () => {
+    const p = placeableSofa();
+    await renderScreen(ItemScreen, { id: p.id });
+    const input = screen.getByLabelText(t('fitCalculator.freeWidthInCentimetres'));
+    await fireEvent.changeText(input, String(Math.round(p.dimensionsCm.w - 30)));
+    expect(screen.queryByText(/Too wide by 30 cm/)).toBeTruthy();
+    await fireEvent.changeText(input, String(Math.round(p.dimensionsCm.w + 120)));
+    expect(screen.queryByText(/Fits, with 120 cm to spare/)).toBeTruthy();
+  });
+
+  it('offers "View in my room" with AR, and "Plan view" without', async () => {
+    const p = placeableSofa();
+    const { unmount } = await renderScreen(ItemScreen, { id: p.id });
+    expect(screen.getByText(t('item.viewInMyRoom'))).toBeTruthy();
+    await unmount();
+    await act(async () => { useSettings.setState({ arSupported: false }); });
+    await renderScreen(ItemScreen, { id: p.id });
+    expect(screen.getByText(t('item.planView'))).toBeTruthy();
+    expect(screen.queryByText(t('item.viewInMyRoom'))).toBeNull();
+  });
+});
+
+describe('Saved', () => {
+  it('shows the two sections with their empty states', async () => {
+    await renderScreen(DesignsScreen);
+    expect(screen.getByText(t('designs.myDesignsAndSample'))).toBeTruthy();
+    expect(screen.getByText(t('designs.savedFurniture'))).toBeTruthy();
+    expect(screen.getByText(t('designs.tapTheHeartOn'))).toBeTruthy();
+  });
+
+  it('lists a saved piece and a saved design, with Plan and AR buttons', async () => {
+    const p = placeableSofa();
+    await act(async () => {
+      useWishlist.getState().toggle(p.id);
+      useRooms.getState().save({ items: [{ productId: p.id, offset: [0, 0, 0], rotationY: 0, scale: 1 }], frame: false });
+    });
+    await renderScreen(DesignsScreen);
+    expect(screen.getByLabelText(t('designs.open', { name: p.name }))).toBeTruthy();   // the saved piece row
+    expect(screen.getAllByText(t('designs.plan')).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(t('designs.ar')).length).toBeGreaterThan(0);
+  });
+
+  it('shows only the Plan button on a phone without AR', async () => {
+    await act(async () => { useSettings.setState({ arSupported: false }); });
+    await renderScreen(DesignsScreen);
+    expect(screen.queryAllByText(t('designs.ar')).length).toBe(0);
+    expect(screen.getAllByText(t('designs.plan')).length).toBeGreaterThan(0);
+  });
+});
+
+describe('Onboarding', () => {
+  const nav = () => ({ reset: jest.fn() });
+
+  it('picks a room type and size, then opens the scan', async () => {
+    const navigation = nav();
+    await render(<WelcomeScreen {...({ navigation } as any)} />);
+    await fireEvent.press(screen.getByLabelText('Bedroom'));
+    await fireEvent.press(screen.getByLabelText(t('welcome.sizeMedium', { area: 16 })));
+    expect(useRooms.getState().roomType).toBe('Bedroom');
+    await fireEvent.press(screen.getByText(t('welcome.scanRoom')));
+    expect(useSettings.getState().onboarded).toBe(true);
+    expect(useSettings.getState().preset).toBe('medium');
+    expect(navigation.reset).toHaveBeenCalledWith(expect.objectContaining({ routes: [{ name: 'Tabs' }, { name: 'AR', params: { starter: true, mode: 'scan' } }] }));
+  });
+
+  it('browse rooms skips the scan', async () => {
+    const navigation = nav();
+    await render(<WelcomeScreen {...({ navigation } as any)} />);
+    await fireEvent.press(screen.getByText(t('welcome.browseRooms')));
+    expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: 'Tabs' }] });
+    expect(useSettings.getState().onboarded).toBe(true);
+  });
+
+  it('without AR the main button plans the room instead', async () => {
+    await act(async () => { useSettings.setState({ arSupported: false }); });
+    const navigation = nav();
+    await render(<WelcomeScreen {...({ navigation } as any)} />);
+    expect(screen.queryByText(t('welcome.scanRoom'))).toBeNull();
+    await fireEvent.press(screen.getByText(t('welcome.planRoom')));
+    expect(navigation.reset).toHaveBeenCalledWith(expect.objectContaining({ routes: [{ name: 'Tabs' }, { name: 'Plan' }] }));
+  });
+});

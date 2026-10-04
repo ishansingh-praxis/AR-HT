@@ -1,0 +1,17 @@
+node_modules/
+.expo/
+android/
+ios/
+dist/
+*.log
+.cache/
+.env
+server/.env
+server/data/
+server/uploads/
+data/*.csv
+models/published/
+server/backups/
+admin/node_modules/
+admin/dist/
+HT Data dump.csv

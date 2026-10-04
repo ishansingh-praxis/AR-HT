@@ -1,0 +1,42 @@
+{
+  "name": "furni-ar",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types scripts/geometry.test.ts && node --experimental-strip-types scripts/rooms.test.ts",
+    "validate:models": "node scripts/validate-models.mjs",
+    "doctor": "expo-doctor",
+    "data:import": "node scripts/import-hometown.mjs",
+    "data:rooms": "node --experimental-strip-types scripts/build-rooms.mjs"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-navigation/bottom-tabs": "^7.20.0",
+    "@react-navigation/native": "^7.5.0",
+    "@react-navigation/native-stack": "^7.20.0",
+    "@reactvision/react-viro": "3.0.2",
+    "expo": "~57.0.26",
+    "expo-build-properties": "~57.0.22",
+    "expo-dev-client": "~57.0.19",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-webview": "13.16.1",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "@types/react": "^19.2.0",
+    "csv-parse": "^7.0.3",
+    "typescript": "^5.9.0"
+  }
+}

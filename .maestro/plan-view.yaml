@@ -1,0 +1,21 @@
+appId: in.hometown.roomdesigner
+name: Plan view (no AR needed): open a sample room, edit, save
+---
+- launchApp
+- tapOn: "Rooms"
+- tapOn:
+    text: "Open .*"
+    index: 0
+- tapOn: "Open in plan view"
+- assertVisible: "Room width \(cm\)"
+- assertVisible: "Pieces"
+- tapOn: "Undo"
+- tapOn: "Add piece"
+- assertVisible: "Suggested"
+- tapOn: "Add piece"
+- scrollUntilVisible:
+    element: "Save design"
+- tapOn: "Save design"
+- assertVisible: "Design saved"
+- tapOn: "Go to Saved"
+- assertVisible: "My designs and sample rooms"

@@ -1,0 +1,42 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - run: npm run check
+  server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci            # root: the server tests read shared/ and src/data
+      - run: npm ci
+        working-directory: admin
+      - run: npm run build     # builds the dashboard the server serves at /admin
+        working-directory: admin
+      - run: npm ci
+        working-directory: server
+      - run: npm test
+        working-directory: server
+  admin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+        working-directory: admin
+      - run: npm run types && git diff --exit-code src/api/schema.d.ts   # generated types must match server/openapi.yaml
+        working-directory: admin
+      - run: npm run typecheck
+        working-directory: admin
+      - run: npm test
+        working-directory: admin
+      - run: npm run build
+        working-directory: admin

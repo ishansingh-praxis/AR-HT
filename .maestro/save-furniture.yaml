@@ -1,0 +1,11 @@
+appId: in.hometown.roomdesigner
+name: Heart a piece and find it under Saved
+---
+- launchApp
+- tapOn: "Library"
+- tapOn:
+    text: "Save for later"
+    index: 0
+- tapOn: "Saved"
+- assertVisible: "Saved furniture"
+- assertNotVisible: "Tap the heart on a piece to keep it here."

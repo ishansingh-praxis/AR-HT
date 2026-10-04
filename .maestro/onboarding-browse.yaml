@@ -1,0 +1,26 @@
+appId: in.hometown.roomdesigner
+name: Onboarding, then browse the library
+---
+- launchApp:
+    clearState: true
+- assertVisible: "See it in your room before you decide."
+- tapOn: "Bedroom"
+- tapOn: "Medium · about 16 m²"
+- tapOn: "Browse rooms"
+- assertVisible: "Library"
+- assertVisible: "Designing: Bedroom"
+- tapOn: "Search furniture"
+- inputText: "sofa"
+- assertVisible: ".* pieces"
+- hideKeyboard
+- tapOn:
+    text: "Category Sofa"
+    optional: true
+- scrollUntilVisible:
+    element: ".*AR.*"
+- assertVisible: ".*AR.*"
+# returning users go straight to the tabs: no onboarding flash
+- stopApp
+- launchApp
+- assertVisible: "Library"
+- assertNotVisible: "See it in your room before you decide."

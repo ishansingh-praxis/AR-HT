@@ -1,0 +1,25 @@
+appId: in.hometown.roomdesigner
+name: Sign in from Settings (needs a server and an account)
+env:
+  EMAIL: ""
+  PASSWORD: ""
+---
+- launchApp
+- tapOn: "Settings"
+- scrollUntilVisible:
+    element: "Sign in"
+- tapOn: "Sign in"
+- tapOn: "Email"
+- inputText: ${EMAIL}
+- tapOn: "Password"
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn:
+    text: "Sign in"
+    index: 1
+- runFlow:
+    when:
+      visible: "Check your email"
+    commands:
+      - tapOn: "Not now"
+- assertVisible: "Signed in as .*"

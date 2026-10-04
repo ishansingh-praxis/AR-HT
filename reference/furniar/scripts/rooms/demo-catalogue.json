@@ -1,0 +1,184 @@
+[
+  {
+    "id": "sofa-velvet",
+    "name": "Glam Velvet Sofa",
+    "category": "Sofa",
+    "subcategory": "3-seater",
+    "brand": "Demo Atelier",
+    "description": "Deep-seated three-seater in soft velvet with a low, relaxed profile.",
+    "price": 42999,
+    "discountPrice": 38999,
+    "currency": "INR",
+    "images": [
+      "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/GlamVelvetSofa/screenshot/screenshot.jpg"
+    ],
+    "model3D": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/GlamVelvetSofa/glTF-Binary/GlamVelvetSofa.glb",
+      "version": 1,
+      "unit": "m"
+    },
+    "dimensionsCm": {
+      "w": 219,
+      "d": 102,
+      "h": 79
+    },
+    "weightKg": 48,
+    "material": "Velvet, hardwood frame",
+    "colors": [
+      {
+        "name": "Plum",
+        "hex": "#5B2A4E"
+      }
+    ],
+    "stock": 12,
+    "rating": {
+      "average": 4.5,
+      "count": 128
+    },
+    "deliveryInfo": {
+      "estimateDays": 7,
+      "installation": true
+    },
+    "ar": {
+      "placements": [
+        "floor"
+      ]
+    }
+  },
+  {
+    "id": "sofa-leather",
+    "name": "Wood & Leather Sofa",
+    "category": "Sofa",
+    "subcategory": "3-seater",
+    "brand": "Demo Atelier",
+    "description": "Mid-century sofa with a solid wood frame and sheen leather cushions.",
+    "price": 54999,
+    "currency": "INR",
+    "images": [
+      "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/screenshot/screenshot.jpg"
+    ],
+    "model3D": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/glTF-Binary/SheenWoodLeatherSofa.glb",
+      "version": 1,
+      "unit": "m"
+    },
+    "dimensionsCm": {
+      "w": 273,
+      "d": 92,
+      "h": 112
+    },
+    "weightKg": 62,
+    "material": "Leather, solid wood",
+    "colors": [
+      {
+        "name": "Tan",
+        "hex": "#A0673A"
+      }
+    ],
+    "stock": 4,
+    "rating": {
+      "average": 4.3,
+      "count": 76
+    },
+    "deliveryInfo": {
+      "estimateDays": 10,
+      "installation": true
+    },
+    "ar": {
+      "placements": [
+        "floor"
+      ]
+    }
+  },
+  {
+    "id": "chair-sheen",
+    "name": "Sheen Accent Chair",
+    "category": "Chair",
+    "subcategory": "Accent chair",
+    "brand": "Demo Atelier",
+    "description": "Compact accent chair with a soft sheen fabric finish.",
+    "price": 12999,
+    "currency": "INR",
+    "images": [
+      "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/screenshot/screenshot.jpg"
+    ],
+    "model3D": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb",
+      "version": 1,
+      "unit": "m"
+    },
+    "dimensionsCm": {
+      "w": 83,
+      "d": 57,
+      "h": 69
+    },
+    "weightKg": 9,
+    "material": "Fabric, beech legs",
+    "colors": [
+      {
+        "name": "Rose",
+        "hex": "#C98B9B"
+      }
+    ],
+    "stock": 25,
+    "rating": {
+      "average": 4.6,
+      "count": 241
+    },
+    "deliveryInfo": {
+      "estimateDays": 5,
+      "installation": false
+    },
+    "ar": {
+      "placements": [
+        "floor"
+      ]
+    }
+  },
+  {
+    "id": "chair-damask",
+    "name": "Damask Armchair",
+    "category": "Chair",
+    "subcategory": "Armchair",
+    "brand": "Demo Atelier",
+    "description": "Classic armchair in purple and gold damask upholstery.",
+    "price": 18499,
+    "discountPrice": 16999,
+    "currency": "INR",
+    "images": [
+      "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ChairDamaskPurplegold/screenshot/screenshot.jpg"
+    ],
+    "model3D": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ChairDamaskPurplegold/glTF-Binary/ChairDamaskPurplegold.glb",
+      "version": 1,
+      "unit": "m"
+    },
+    "dimensionsCm": {
+      "w": 83,
+      "d": 57,
+      "h": 69
+    },
+    "weightKg": 11,
+    "material": "Damask fabric, mahogany",
+    "colors": [
+      {
+        "name": "Purple & gold",
+        "hex": "#6C4A8E"
+      }
+    ],
+    "stock": 0,
+    "rating": {
+      "average": 4.2,
+      "count": 57
+    },
+    "deliveryInfo": {
+      "estimateDays": 6,
+      "installation": false
+    },
+    "ar": {
+      "placements": [
+        "floor"
+      ]
+    }
+  }
+]

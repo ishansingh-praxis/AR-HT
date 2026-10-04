@@ -1,0 +1,699 @@
+[
+ {
+  "id": "living-modern",
+  "title": "Modern living room",
+  "roomType": "living",
+  "style": [
+   "modern"
+  ],
+  "blurb": "A sofa-first layout: sofa on the long wall, 45 cm to the coffee table, TV opposite, two chairs closing the conversation circle.",
+  "roomCm": {
+   "w": 450,
+   "d": 380
+  },
+  "door": {
+   "wall": "bottom",
+   "at": 60
+  },
+  "pieces": [
+   {
+    "productId": "icon-velvet-3-seater-sofa-beige",
+    "x": 225,
+    "z": 45,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "maysville-glass-top-center-table-in-walnut-colour",
+    "x": 225,
+    "z": 165,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "concerto-tv-unit-light-grey",
+    "x": 225,
+    "z": 360,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "nixa-side-table",
+    "x": 354,
+    "z": 26,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "jane-velvet-accent-chair-in-blue",
+    "x": 395,
+    "z": 215,
+    "rot": -90,
+    "anchor": false
+   },
+   {
+    "productId": "jane-velvet-accent-chair-in-sea-beige",
+    "x": 55,
+    "z": 215,
+    "rot": 90,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "living-compact",
+  "title": "Compact living room",
+  "roomType": "living",
+  "style": [
+   "modern",
+   "minimal"
+  ],
+  "blurb": "A 9 m² living room: a two-seater on the top wall, a low coffee table 45 cm away and a slim TV unit opposite.",
+  "roomCm": {
+   "w": 300,
+   "d": 300
+  },
+  "door": {
+   "wall": "bottom",
+   "at": 30
+  },
+  "pieces": [
+   {
+    "productId": "faro-fabric-2-seater-sofa-blue",
+    "x": 150,
+    "z": 40.5,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "orion-center-table",
+    "x": 150,
+    "z": 151,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "opus-tv-unit",
+    "x": 150,
+    "z": 280.4,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "ornate-marble-top-side-table",
+    "x": 257,
+    "z": 23,
+    "rot": 0,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "living-grand",
+  "title": "Grand living room",
+  "roomType": "living",
+  "style": [
+   "classic",
+   "contemporary"
+  ],
+  "blurb": "A 25 m² room built around a four-seater: two armchairs face each other across a wide coffee table, TV on the far wall.",
+  "roomCm": {
+   "w": 500,
+   "d": 500
+  },
+  "door": {
+   "wall": "bottom",
+   "at": 60
+  },
+  "pieces": [
+   {
+    "productId": "grace-fabric-4-seater-sofa-grey",
+    "x": 250,
+    "z": 45.5,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "bliss-marble-top-center-table-in-beige-colour",
+    "x": 250,
+    "z": 167,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "concerto-tv-unit-light-grey",
+    "x": 250,
+    "z": 480.1,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "charm-velvet-arm-chair-in-dark-grey-colour-copy",
+    "x": 39.5,
+    "z": 250,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "charm-velvet-arm-chair-in-dark-grey-colour-copy",
+    "x": 460.5,
+    "z": 250,
+    "rot": -90,
+    "anchor": false
+   },
+   {
+    "productId": "ornate-marble-top-side-table",
+    "x": 411,
+    "z": 23,
+    "rot": 0,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "bedroom-nova",
+  "title": "Nova bedroom",
+  "roomType": "bedroom",
+  "style": [
+   "contemporary"
+  ],
+  "blurb": "Bed centred on the headboard wall with matching night stands, wardrobe at the foot, dresser on the side wall. All from the Nova collection.",
+  "roomCm": {
+   "w": 420,
+   "d": 380
+  },
+  "door": {
+   "wall": "left",
+   "at": 200
+  },
+  "pieces": [
+   {
+    "productId": "nova-queen-bed-hydraulic-storage",
+    "x": 210,
+    "z": 113,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "nova-night-stand",
+    "x": 101,
+    "z": 21,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "nova-night-stand",
+    "x": 319,
+    "z": 21,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "nova-3-door-wardrobe",
+    "x": 210,
+    "z": 354,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "nova-dresser-with-full-length-mirror",
+    "x": 400,
+    "z": 290,
+    "rot": -90,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "bedroom-cosy",
+  "title": "Cosy bedroom",
+  "roomType": "bedroom",
+  "style": [
+   "contemporary"
+  ],
+  "blurb": "A 12 m² bedroom: queen bed on the headboard wall, a night stand each side, a three-door wardrobe at the foot.",
+  "roomCm": {
+   "w": 340,
+   "d": 360
+  },
+  "door": {
+   "wall": "right",
+   "at": 250
+  },
+  "pieces": [
+   {
+    "productId": "asa-nx-queen-bed-with-hydraulic-strge",
+    "x": 170,
+    "z": 104.1,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "cascade-night-stand-new",
+    "x": 58.5,
+    "z": 20,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "cascade-night-stand-new",
+    "x": 281.5,
+    "z": 20,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "swirl-3-door-wardrobe-wenge",
+    "x": 170,
+    "z": 336,
+    "rot": 180,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "bedroom-stellar",
+  "title": "Stellar master bedroom",
+  "roomType": "bedroom",
+  "style": [
+   "modern",
+   "glossy"
+  ],
+  "blurb": "A 16 m² master bedroom in the Stellar high-gloss set: bed, night stands, four-door wardrobe and a chest of drawers on the side wall.",
+  "roomCm": {
+   "w": 400,
+   "d": 400
+  },
+  "door": {
+   "wall": "bottom",
+   "at": 345
+  },
+  "pieces": [
+   {
+    "productId": "stellar-queen-bed-with-hydraulic-storage-in-high-gloss-white",
+    "x": 200,
+    "z": 103.9,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "stellar-night-stand-in-high-gloss-white",
+    "x": 88,
+    "z": 20.1,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "stellar-night-stand-in-high-gloss-white",
+    "x": 312,
+    "z": 20.1,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "stellar-4-door-wardrobe-in-high-gloss-white",
+    "x": 200,
+    "z": 370.1,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "stellar-chest-of-5-drawers-in-high-gloss-white",
+    "x": 379.9,
+    "z": 250,
+    "rot": -90,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "dining-oren",
+  "title": "Oren dining room",
+  "roomType": "dining",
+  "style": [
+   "modern"
+  ],
+  "blurb": "Six-seater table centred in the room with a chair on each side and one at each end, 5 cm pulled out so chairs can slide.",
+  "roomCm": {
+   "w": 400,
+   "d": 360
+  },
+  "pieces": [
+   {
+    "productId": "oren-sintered-stone-6-seater-dinning-table",
+    "x": 200,
+    "z": 180,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 155,
+    "z": 106,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 245,
+    "z": 106,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 155,
+    "z": 254,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 245,
+    "z": 254,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 81,
+    "z": 180,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 319,
+    "z": 180,
+    "rot": -90,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "dining-fauna",
+  "title": "Fauna dining room",
+  "roomType": "dining",
+  "style": [
+   "modern"
+  ],
+  "blurb": "A 16 m² dining room: six-seater in the middle, a chair on every side and a long display shelf on the left wall.",
+  "roomCm": {
+   "w": 400,
+   "d": 400
+  },
+  "pieces": [
+   {
+    "productId": "fauna-sintered-stone-6-seater-dinning-table",
+    "x": 200,
+    "z": 200,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 160,
+    "z": 127,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 240,
+    "z": 127,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 160,
+    "z": 273,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 240,
+    "z": 273,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 92,
+    "z": 200,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 308,
+    "z": 200,
+    "rot": -90,
+    "anchor": false
+   },
+   {
+    "productId": "regalia-bookshelf",
+    "x": 30,
+    "z": 200,
+    "rot": 90,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "dining-grand",
+  "title": "Grand dining room",
+  "roomType": "dining",
+  "style": [
+   "classic"
+  ],
+  "blurb": "A 25 m² dining room: the Oren six-seater with six chairs, a display shelf on the top wall and a console on the right wall.",
+  "roomCm": {
+   "w": 500,
+   "d": 500
+  },
+  "pieces": [
+   {
+    "productId": "oren-sintered-stone-6-seater-dinning-table",
+    "x": 250,
+    "z": 250,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 205,
+    "z": 176,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 295,
+    "z": 176,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 205,
+    "z": 324,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 295,
+    "z": 324,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 131,
+    "z": 250,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "oren-dinning-chair-set-of-2-beige",
+    "x": 369,
+    "z": 250,
+    "rot": -90,
+    "anchor": false
+   },
+   {
+    "productId": "regalia-bookshelf",
+    "x": 250,
+    "z": 30,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "aristotle-solidwood-console-table",
+    "x": 478.5,
+    "z": 250,
+    "rot": -90,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "study-compact",
+  "title": "Compact study",
+  "roomType": "study",
+  "style": [
+   "minimal"
+  ],
+  "blurb": "Desk and bookshelf share the window wall, with a reading chair and side table in the corner.",
+  "notes": "Office chairs in the export have no height, so the desk chair is a dining chair (one of a set of 2).",
+  "roomCm": {
+   "w": 320,
+   "d": 300
+  },
+  "pieces": [
+   {
+    "productId": "scholarhub-study-table",
+    "x": 130,
+    "z": 29,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "velmont-bookshelf",
+    "x": 225,
+    "z": 30,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 130,
+    "z": 91,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "charm-velvet-arm-chair-in-dark-grey-colour-copy",
+    "x": 40,
+    "z": 220,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "nixa-side-table",
+    "x": 101,
+    "z": 220,
+    "rot": 0,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "study-nook",
+  "title": "Study nook",
+  "roomType": "study",
+  "style": [
+   "minimal"
+  ],
+  "blurb": "A 9 m² study: desk and a slim bookshelf on the top wall, a reading chair with its side table on the left.",
+  "notes": "The desk chair is a dining chair (one of a set of 2): office chairs in the export have no usable height.",
+  "roomCm": {
+   "w": 300,
+   "d": 300
+  },
+  "pieces": [
+   {
+    "productId": "scholarhub-study-table",
+    "x": 100,
+    "z": 28.5,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 100,
+    "z": 91,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "elara-bookshelf",
+    "x": 235,
+    "z": 17.5,
+    "rot": 0,
+    "anchor": false
+   },
+   {
+    "productId": "charm-velvet-arm-chair-in-dark-grey-colour-copy",
+    "x": 34.5,
+    "z": 230,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "nixa-side-table",
+    "x": 22.25,
+    "z": 154,
+    "rot": 0,
+    "anchor": false
+   }
+  ]
+ },
+ {
+  "id": "study-library",
+  "title": "Study with library wall",
+  "roomType": "study",
+  "style": [
+   "classic"
+  ],
+  "blurb": "A 12 m² study: a long bookshelf along the left wall, desk beside it, a reading chair and side table on the right.",
+  "notes": "The desk chair is a dining chair (one of a set of 2): office chairs in the export have no usable height.",
+  "roomCm": {
+   "w": 340,
+   "d": 350
+  },
+  "door": {
+   "wall": "bottom",
+   "at": 170
+  },
+  "pieces": [
+   {
+    "productId": "scholarhub-study-table",
+    "x": 120,
+    "z": 28.5,
+    "rot": 0,
+    "anchor": true
+   },
+   {
+    "productId": "mio-dinning-chair-set-of-2",
+    "x": 120,
+    "z": 91,
+    "rot": 180,
+    "anchor": false
+   },
+   {
+    "productId": "regalia-bookshelf",
+    "x": 30,
+    "z": 175,
+    "rot": 90,
+    "anchor": false
+   },
+   {
+    "productId": "charm-velvet-arm-chair-in-dark-grey-colour-copy",
+    "x": 305.5,
+    "z": 250,
+    "rot": -90,
+    "anchor": false
+   },
+   {
+    "productId": "nixa-side-table",
+    "x": 317.75,
+    "z": 174.25,
+    "rot": 0,
+    "anchor": false
+   }
+  ]
+ }
+]

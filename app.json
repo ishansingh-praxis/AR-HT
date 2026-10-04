@@ -1,0 +1,90 @@
+{
+  "expo": {
+    "name": "HomeTown AR",
+    "slug": "hometown-ar",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "ios": {
+      "bundleIdentifier": "in.hometown.roomdesigner",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "HomeTown uses the camera to place furniture in your room.",
+        "NSPhotoLibraryAddUsageDescription": "HomeTown saves your room photos and videos to Photos.",
+        "UIRequiredDeviceCapabilities": [
+          "arkit"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "usesAppleSignIn": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "in.hometown.roomdesigner",
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/logo.png",
+          "backgroundColor": "#14211F",
+          "imageWidth": 180
+        }
+      ],
+      "expo-dev-client",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24
+          },
+          "ios": {
+            "deploymentTarget": "16.4"
+          }
+        }
+      ],
+      "./plugins/withOptionalAR",
+      [
+        "@reactvision/react-viro",
+        {
+          "provider": "none",
+          "android": {
+            "xRMode": [
+              "AR"
+            ]
+          },
+          "ios": {
+            "cameraUsagePermission": "HomeTown uses the camera to place furniture in your room.",
+            "savePhotosPermission": "HomeTown saves your room photos and videos to Photos."
+          }
+        }
+      ],
+      "expo-secure-store",
+      "expo-web-browser",
+      "expo-apple-authentication",
+      "expo-localization",
+      "expo-image"
+    ],
+    "scheme": "hometownar",
+    "userInterfaceStyle": "automatic",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "eb974d24-742e-43e8-9362-bac49dfcba8e"
+      }
+    },
+    "owner": "aashi910"
+  }
+}
