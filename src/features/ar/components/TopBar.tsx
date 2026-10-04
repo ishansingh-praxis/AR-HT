@@ -3,17 +3,17 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../theme';
 import { t } from '../../../i18n';
 
-function Pill({ label, onPress, disabled, danger, first }: { label: string; onPress: () => void; disabled?: boolean; danger?: boolean; first?: boolean }) {
+function Pill({ label, a11y, onPress, disabled, danger, first }: { label: string; a11y?: string; onPress: () => void; disabled?: boolean; danger?: boolean; first?: boolean }) {
   return (
-    <Pressable accessibilityRole="button" accessibilityLabel={label} onPress={onPress} disabled={disabled}
+    <Pressable accessibilityRole="button" accessibilityLabel={a11y ?? label} onPress={onPress} disabled={disabled}
       style={[s.pill, !first && { marginLeft: 8 }, disabled && { opacity: 0.4 }, danger && { backgroundColor: colors.danger }]}>
       <Text style={s.text}>{label}</Text>
     </Pressable>
   );
 }
 
-export function TopBar({ onClose, onUndo, onRedo, canUndo, canRedo, recording, onToggleVideo }: {
-  onClose: () => void; onUndo: () => void; onRedo: () => void; canUndo: boolean; canRedo: boolean; recording: boolean; onToggleVideo: () => void;
+export function TopBar({ onClose, onUndo, onRedo, canUndo, canRedo, recording, onToggleVideo, onHelp }: {
+  onHelp: () => void; onClose: () => void; onUndo: () => void; onRedo: () => void; canUndo: boolean; canRedo: boolean; recording: boolean; onToggleVideo: () => void;
 }) {
   return (
     <View style={s.row}>
@@ -21,6 +21,7 @@ export function TopBar({ onClose, onUndo, onRedo, canUndo, canRedo, recording, o
       <Pill label={t('plan.undo')} onPress={onUndo} disabled={!canUndo} />
       <Pill label={t('plan.redo')} onPress={onRedo} disabled={!canRedo} />
       <Pill label={recording ? t('topBar.stop') : t('topBar.record')} onPress={onToggleVideo} danger={recording} />
+      <Pill label="?" a11y={t('hint.help')} onPress={onHelp} />
     </View>
   );
 }

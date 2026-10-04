@@ -35,10 +35,7 @@ export default function RoomDetailScreen({ navigation, route }: NativeStackScree
       <Text style={s.p}>{room.blurb}</Text>
       {room.notes ? <Text style={[s.p, { color: colors.muted }]}>{room.notes}</Text> : null}
 
-      {noAR
-        ? <Button label={t('roomDetail.openInPlanView')} onPress={() => navigation.navigate('Plan', { designId: ROOM_ID_PREFIX + room.id })} style={{ marginTop: 14 }} />
-        : <Button label={t('roomDetail.tryInMyRoom')} onPress={() => navigation.navigate('AR', { designId: ROOM_ID_PREFIX + room.id })} style={{ marginTop: 14 }} />}
-      {!noAR && <Button label={t('roomDetail.openInPlanView')} variant="outline" onPress={() => navigation.navigate('Plan', { designId: ROOM_ID_PREFIX + room.id })} style={{ marginTop: 8 }} />}
+      <Button label={t('roomDetail.tryInMyRoom')} onPress={() => (noAR ? navigation.navigate('Plan', { designId: ROOM_ID_PREFIX + room.id }) : navigation.navigate('AR', { designId: ROOM_ID_PREFIX + room.id }))} style={{ marginTop: 14 }} />
 
       <Text style={s.h}>{t('roomDetail.piecesInThisRoom')}</Text>
       {list.map(({ product, pieces, sets }) => (

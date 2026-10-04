@@ -94,8 +94,7 @@ export default function DesignsScreen() {
           )}
           <Text style={s.meta}>{d.items.length} pieces · {d.createdAt ? new Date(d.createdAt).toLocaleDateString() : 'curated by HomeTown'}</Text>
           <View style={s.row}>
-            {!noAR && <Button label={t('designs.ar')} onPress={() => nav.navigate('AR', { designId: d.id })} style={s.flex} />}
-            <Button label={t('designs.plan')} variant={noAR ? 'solid' : 'outline'} onPress={() => nav.navigate('Plan', { designId: d.id })} style={s.flex} />
+            <Button label={t('designs.plan')} onPress={() => (noAR ? nav.navigate('Plan', { designId: d.id }) : nav.navigate('AR', { designId: d.id }))} style={s.flex} />
             {!d.id.startsWith(ROOM_ID_PREFIX) && <Button label={t('designs.rename')} variant="outline" onPress={() => { setDraft(d.name); setEditing(d.id); }} style={s.flex} />}
           </View>
           <View style={s.row}>

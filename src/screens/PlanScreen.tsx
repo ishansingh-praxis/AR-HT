@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions } from 'react-native';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button } from '../components/ui';
 import { PlanCanvas } from '../features/plan/PlanCanvas';
 import { PieceList } from '../features/plan/PieceList';
+import { GestureHint } from '../components/GestureHint';
 import { usePlan } from '../features/plan/usePlan';
 import { ProductPicker } from '../features/ar/components/ProductPicker';
 import { SuggestionChips } from '../features/ar/components/SuggestionChips';
@@ -26,7 +27,15 @@ export default function PlanScreen({ navigation, route }: NativeStackScreenProps
   const roomType = useRooms((r) => r.roomType);
   const arSupported = useSettings((st) => st.arSupported);
   const p = usePlan(route.params ?? {});
+  const hintSeen = useSettings((st) => st.hintsSeen.plan);
+  const markHint = useSettings((st) => st.markHint);
+  const [hint, setHint] = useState(false);
   const [adding, setAdding] = useState(false);
+  // Teach the gestures the first time, and from the ? button in the header any time
+  useEffect(() => { if (!hintSeen) { const id = setTimeout(() => setHint(true), 600); return () => clearTimeout(id); } }, [hintSeen]);
+  useLayoutEffect(() => {
+    navigation.setOptions({ headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel={t('hint.help')} onPress={() => setHint(true)} hitSlop={10} style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }}><Text style={{ fontSize: 22, color: colors.accent, fontWeight: '800' }}>?</Text></Pressable> });
+  }, [navigation]);
   const [drafts, setDrafts] = useState<{ w?: string; d?: string }>({});
 
   const placed = useMemo(() => toPlaced(p.pieces), [p.pieces]);
@@ -59,7 +68,9 @@ export default function PlanScreen({ navigation, route }: NativeStackScreenProps
       <View style={s.row}>{sizeInput('Room width (cm)', 'w')}{sizeInput('Room depth (cm)', 'd')}</View>
       <Text style={s.hint}>{p.scanned ? 'Starting from your scanned room. ' : ''}Type the real size to resize the room.</Text>
       <PlanCanvas width={width - 28} room={p.room} pieces={p.pieces} selectedId={p.selectedId} flagged={flagged}
-        onSelect={p.setSelectedId} onDragStart={p.dragStart} onDragTo={p.dragTo} onDragEnd={p.dragEnd} />
+        onSelect={p.setSelectedId} onDragStart={p.dragStart} onDragTo={p.dragTo} onDragEnd={p.dragEnd}
+        onTwistStart={p.twistStart} onTwistTo={p.twistTo} onTwistEnd={p.twistEnd} />
+      <Text style={s.hint}>{t('hint.planLine')}</Text>
       <Text accessibilityLiveRegion="polite" style={[s.status, (colliding.length || narrow.length) ? { color: colors.danger } : null]}>{status}</Text>
 
       <View style={s.row}>
@@ -81,12 +92,6 @@ export default function PlanScreen({ navigation, route }: NativeStackScreenProps
           <Text style={s.h}>{selProduct.name}</Text>
           <Text style={s.meta}>{sizeLabel(selProduct)} · {walls.nearestCm < 0 ? `${Math.round(-walls.nearestCm)} cm outside the ${walls.nearest} wall` : `${Math.round(walls.nearestCm)} cm from the ${walls.nearest} wall`}</Text>
           <View style={s.row}>
-            <Button label="⟲ 90°" variant="outline" onPress={() => p.rotate(sel.uid, -90)} style={s.flex} />
-            <Button label="⟳ 90°" variant="outline" onPress={() => p.rotate(sel.uid, 90)} style={s.flex} />
-            <Button label="-15°" variant="outline" onPress={() => p.rotate(sel.uid, -15)} style={s.flex} />
-            <Button label="+15°" variant="outline" onPress={() => p.rotate(sel.uid, 15)} style={s.flex} />
-          </View>
-          <View style={s.row}>
             <Button label={t('plan.copy')} variant="outline" onPress={() => p.duplicate(sel.uid)} style={s.flex} />
             <Button label={t('designs.delete')} variant="danger" onPress={() => p.remove(sel.uid)} style={s.flex} />
           </View>
@@ -100,6 +105,7 @@ export default function PlanScreen({ navigation, route }: NativeStackScreenProps
       {arSupported !== false && p.pieces.length > 0 ? (
         <Button label={t('plan.openInAr')} variant="outline" onPress={() => navigation.navigate('AR', { sharedItems: p.asItems(), fromPlan: true })} style={{ marginTop: 8 }} />
       ) : null}
+      <GestureHint visible={hint} steps={['drag', 'twist', 'pinch', 'slide']} onClose={() => { setHint(false); markHint('plan'); }} />
     </ScrollView>
   );
 }

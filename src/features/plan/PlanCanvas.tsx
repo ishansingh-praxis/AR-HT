@@ -21,18 +21,25 @@ interface Props {
   onDragStart: (uid: string) => void;
   onDragTo: (uid: string, xCm: number, zCm: number) => void;
   onDragEnd: () => void;
+  /** Two-finger twist on the selected piece (degrees, turning left = positive like the rest of the app). */
+  onTwistStart: (uid: string) => void;
+  onTwistTo: (uid: string, rotDeg: number) => void;
+  onTwistEnd: () => void;
 }
 
 /**
  * The to-scale plan. One finger drags a piece (5 cm steps); two fingers pan and pinch-zoom the canvas.
  * Gestures sit on a fixed outer view, so the maths is always: plan = (screen - pan) / zoom (see screenToPlan).
  */
-export function PlanCanvas({ width, room, pieces, selectedId, flagged, onSelect, onDragStart, onDragTo, onDragEnd }: Props) {
+export function PlanCanvas({ width, room, pieces, selectedId, flagged, onSelect, onDragStart, onDragTo, onDragEnd, onTwistStart, onTwistTo, onTwistEnd }: Props) {
   const pxPerCm = (width - PAD) / room.w;
   const height = room.d * pxPerCm + PAD;
   const scale = useSharedValue(1), tx = useSharedValue(0), ty = useSharedValue(0);
   const baseScale = useSharedValue(1), baseTx = useSharedValue(0), baseTy = useSharedValue(0);
   const dragId = useSharedValue('');
+  const twistBase = useSharedValue(0);
+  const slideBase = useSharedValue({ x: 0, y: 0 });
+  const selectedRot = pieces.find((p) => p.uid === selectedId)?.rot ?? 0;
   const grab = useSharedValue({ dx: 0, dz: 0 });
 
   const svg = useMemo(() => planSvg({
@@ -68,17 +75,26 @@ export function PlanCanvas({ width, room, pieces, selectedId, flagged, onSelect,
     onDragTo(uid, at.x - gx, at.z - gz);
   };
 
-  const drag = Gesture.Pan().maxPointers(1)
-    .onBegin((e) => { runOnJS(begin)(e.x, e.y, scale.value, tx.value, ty.value); })
-    .onUpdate((e) => { if (dragId.value) runOnJS(dragMove)(dragId.value, e.x, e.y, scale.value, tx.value, ty.value, grab.value.dx, grab.value.dz); })
+  // One finger: on a piece it drags the piece (5 cm steps); on empty floor it slides the whole view.
+  const drag = Gesture.Pan().maxPointers(1).minDistance(4)
+    .onBegin((e) => { slideBase.value = { x: tx.value, y: ty.value }; runOnJS(begin)(e.x, e.y, scale.value, tx.value, ty.value); })
+    .onUpdate((e) => {
+      if (dragId.value) runOnJS(dragMove)(dragId.value, e.x, e.y, scale.value, tx.value, ty.value, grab.value.dx, grab.value.dz);
+      else { tx.value = slideBase.value.x + e.translationX; ty.value = slideBase.value.y + e.translationY; }
+    })
     .onFinalize(() => { if (dragId.value) { runOnJS(onDragEnd)(); dragId.value = ''; } });
+  // Two fingers twisting: turns the selected piece.
+  const twist = Gesture.Rotation()
+    .onStart(() => { twistBase.value = selectedRot; if (selectedId) runOnJS(onTwistStart)(selectedId); })
+    .onUpdate((e) => { if (selectedId) runOnJS(onTwistTo)(selectedId, twistBase.value - (e.rotation * 180) / Math.PI); })
+    .onFinalize(() => { if (selectedId) runOnJS(onTwistEnd)(); });
   const pan = Gesture.Pan().minPointers(2)
     .onStart(() => { baseTx.value = tx.value; baseTy.value = ty.value; })
     .onUpdate((e) => { tx.value = baseTx.value + e.translationX; ty.value = baseTy.value + e.translationY; });
   const pinch = Gesture.Pinch()
     .onStart(() => { baseScale.value = scale.value; })
     .onUpdate((e) => { scale.value = clampScale(baseScale.value * e.scale); });
-  const gesture = Gesture.Simultaneous(Gesture.Exclusive(pan, drag), pinch);
+  const gesture = Gesture.Simultaneous(Gesture.Exclusive(pan, drag), pinch, twist);
 
   const style = useAnimatedStyle(() => ({ transformOrigin: 'top left', transform: [{ translateX: tx.value }, { translateY: ty.value }, { scale: scale.value }] }));
 

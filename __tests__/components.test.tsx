@@ -64,7 +64,7 @@ describe('Item: "Will it fit?"', () => {
     expect(screen.queryByText(/Fits, with 120 cm to spare/)).toBeTruthy();
   });
 
-  it('offers "View in my room" with AR, and "Plan view" without', async () => {
+  it('offers "View in my room" with and without AR (without AR it opens the plan, and says why)', async () => {
     const p = placeableSofa();
     const { unmount } = await renderScreen(ItemScreen, { id: p.id });
     expect(screen.getByText(t('item.viewInMyRoom'))).toBeTruthy();
@@ -72,7 +72,7 @@ describe('Item: "Will it fit?"', () => {
     await act(async () => { useSettings.setState({ arSupported: false }); });
     await renderScreen(ItemScreen, { id: p.id });
     expect(screen.getByText(t('item.planView'))).toBeTruthy();
-    expect(screen.queryByText(t('item.viewInMyRoom'))).toBeNull();
+    expect(screen.getByText(t('item.thisPhoneDoesNot'))).toBeTruthy();
   });
 });
 
@@ -84,7 +84,7 @@ describe('Saved', () => {
     expect(screen.getByText(t('designs.tapTheHeartOn'))).toBeTruthy();
   });
 
-  it('lists a saved piece and a saved design, with Plan and AR buttons', async () => {
+  it('lists a saved piece and a saved design, each with one "View in my room" button', async () => {
     const p = placeableSofa();
     await act(async () => {
       useWishlist.getState().toggle(p.id);
@@ -93,10 +93,10 @@ describe('Saved', () => {
     await renderScreen(DesignsScreen);
     expect(screen.getByLabelText(t('designs.open', { name: p.name }))).toBeTruthy();   // the saved piece row
     expect(screen.getAllByText(t('designs.plan')).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(t('designs.ar')).length).toBeGreaterThan(0);
+    expect(screen.queryAllByText(t('designs.ar')).length).toBe(0);
   });
 
-  it('shows only the Plan button on a phone without AR', async () => {
+  it('shows the same single button on a phone without AR', async () => {
     await act(async () => { useSettings.setState({ arSupported: false }); });
     await renderScreen(DesignsScreen);
     expect(screen.queryAllByText(t('designs.ar')).length).toBe(0);
@@ -134,5 +134,19 @@ describe('Onboarding', () => {
     expect(screen.queryByText(t('welcome.scanRoom'))).toBeNull();
     await fireEvent.press(screen.getByText(t('welcome.planRoom')));
     expect(navigation.reset).toHaveBeenCalledWith(expect.objectContaining({ routes: [{ name: 'Tabs' }, { name: 'Plan' }] }));
+  });
+});
+
+describe('Gesture demo', () => {
+  it('shows each gesture caption and closes with Got it', async () => {
+    const { GestureHint } = require('../src/components/GestureHint');
+    const onClose = jest.fn();
+    await render(<GestureHint visible steps={['drag', 'twist', 'pinch']} onClose={onClose} />);
+    expect(screen.getByText(t('hint.title'))).toBeTruthy();
+    expect(screen.getByText(t('hint.drag'))).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText(t('hint.twist')));
+    expect(screen.getByText(t('hint.twist'))).toBeTruthy();
+    await fireEvent.press(screen.getByText(t('hint.gotIt')));
+    expect(onClose).toHaveBeenCalled();
   });
 });

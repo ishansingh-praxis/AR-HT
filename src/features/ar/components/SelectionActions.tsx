@@ -6,10 +6,10 @@ import { variantLabel } from '../../../data/furniture';
 import { colors } from '../../../theme';
 import type { Product } from '../../../types/furniture';
 
-/** Option / Pairs-with / Swap chips and rotate / copy / delete for the selected piece. */
-export function SelectionActions({ selected, variants, pairs, swaps, onSwap, onPick, onRotate, onCopy, onDelete }: {
+/** Option / Pairs-with / Swap chips and copy / delete for the selected piece. Moving, turning and resizing are done with the fingers (see GestureHint). */
+export function SelectionActions({ selected, variants, pairs, swaps, onSwap, onPick, onCopy, onDelete }: {
   selected: Product; variants: Product[]; pairs: Product[]; swaps: Product[];
-  onSwap: (id: string) => void; onPick: (id: string) => void; onRotate: (deg: number) => void; onCopy: () => void; onDelete: () => void;
+  onSwap: (id: string) => void; onPick: (id: string) => void; onCopy: () => void; onDelete: () => void;
 }) {
   return (
     <View>
@@ -21,8 +21,6 @@ export function SelectionActions({ selected, variants, pairs, swaps, onSwap, onP
         </ScrollView>
       )}
       <View style={s.row}>
-        <Button label="⟲ 15°" variant="outline" onPress={() => onRotate(15)} style={s.flex} />
-        <Button label="⟳ 15°" variant="outline" onPress={() => onRotate(-15)} style={s.flex} />
         <Button label={t('plan.copy')} variant="outline" onPress={onCopy} style={s.flex} />
         <Button label={t('designs.delete')} variant="danger" onPress={onDelete} style={s.flex} />
       </View>

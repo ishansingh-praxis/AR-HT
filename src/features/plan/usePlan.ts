@@ -84,6 +84,16 @@ export function usePlan(params: { designId?: string; productId?: string }) {
       history.update(id, { position: [p.x / 100, 0, p.z / 100] });
     },
     dragEnd: () => { dragging.current = false; },
+    /** Twist with two fingers: one history entry for the whole gesture, 5 degree steps. */
+    twistStart: (id: string) => { if (dragging.current) return; dragging.current = true; history.commit(history.items); setSelectedId(id); },
+    twistTo: (id: string, rotDeg: number) => {
+      const it = history.items.find((i) => i.uid === id);
+      if (!it) return;
+      const rot = turnDeg(Math.round(rotDeg / 5) * 5, 0);
+      const p = clampInside({ x: it.position[0] * 100, z: it.position[2] * 100, rot }, dimsOf(it.productId), room);
+      history.update(id, { rotationY: rot, position: [p.x / 100, 0, p.z / 100] });
+    },
+    twistEnd: () => { dragging.current = false; },
     /** Saves as a new design, or updates the one that was opened. Same `items[]` as AR, so it opens in either. */
     saveDesign: () => {
       if (!pieces.length) { Alert.alert(t('useDesignIO.nothingToSave'), t('usePlan.addAtLeastOne')); return undefined; }

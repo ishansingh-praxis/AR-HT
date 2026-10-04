@@ -34,6 +34,7 @@ import { CoachingOverlay } from '../features/ar/components/CoachingOverlay';
 import { PermissionGate } from '../features/ar/components/PermissionGate';
 import { BottomSheet } from '../features/ar/components/BottomSheet';
 import { SelectionActions } from '../features/ar/components/SelectionActions';
+import { GestureHint } from '../components/GestureHint';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 
 const TRACKING_NORMAL = 3;
@@ -120,6 +121,11 @@ export default function ARScreen({ navigation, route }: NativeStackScreenProps<R
   const proxyUids = useMemo(() => lodUids(items, getFurniture), [items]);
   const setQuality = useSettings((s) => s.setQuality);
   const [dropped, setDropped] = useState(false);
+  const hintSeen = useSettings((s) => s.hintsSeen.ar);
+  const markHint = useSettings((s) => s.markHint);
+  const [hint, setHint] = useState(false);
+  // The first time a piece lands, show how to move, turn and resize it with the fingers.
+  useEffect(() => { if (!hintSeen && items.length > 0) { const id = setTimeout(() => setHint(true), 900); return () => clearTimeout(id); } }, [hintSeen, items.length > 0]); // eslint-disable-line react-hooks/exhaustive-deps
   useFrameRate(high && items.length >= 10, LOW_FPS, (fps) => { if (shouldDropQuality(quality, fps, items.length)) { setQuality('standard', false); setDropped(true); } });
   const sceneProps = useMemo<Omit<SceneProps, 'bridge'>>(
     () => ({ items, selectedId, colliding, corners: [...scan.corners, ...wall.points], outline: scan.outline, wall: wall.wall, modelUris, proxyUids, shadows: high, onHit, onTracking, onAnchor, onSelect: setSelectedId, onUpdate: update, onModelError }),
@@ -148,7 +154,7 @@ export default function ARScreen({ navigation, route }: NativeStackScreenProps<R
     <View style={{ flex: 1, backgroundColor: '#000' }}>
       <ARView ref={session} sceneProps={sceneProps} high={high} />
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingHorizontal: 14, paddingTop: insets.top + 8, alignItems: 'flex-start' }}>
-        <TopBar
+        <TopBar onHelp={() => setHint(true)}
           onClose={() => { flushEvents(); navigation.goBack(); }} recording={capture.recording} onToggleVideo={capture.toggleVideo}
           canUndo={history.canUndo} canRedo={history.canRedo}
           onUndo={() => history.undo() && setSelectedId(null)} onRedo={() => history.redo() && setSelectedId(null)} />
@@ -156,6 +162,7 @@ export default function ARScreen({ navigation, route }: NativeStackScreenProps<R
           onRemoveBroken={() => { commit(items.filter((i) => !broken.includes(i.uid))); setBroken([]); }} roomLine={roomLine} selectedLine={selectedLine} />
       </View>
       {(!hasSurface || lost) && <CoachingOverlay lost={lost} />}
+      <GestureHint visible={hint} steps={['drag', 'twist', 'resize']} onClose={() => { setHint(false); markHint('ar'); }} />
       <BottomSheet
         bottomInset={insets.bottom} products={FURNITURE} suggested={suggested} productId={productId} onPick={setProductId}
         scan={scan} wall={wall} hasSurface={hasSurface} onAddCorner={() => scan.mark(hit.current)} onAddWallPoint={() => wall.addPoint(hit.current)}
@@ -163,7 +170,7 @@ export default function ARScreen({ navigation, route }: NativeStackScreenProps<R
         tools={{ save: io.save, photo: capture.photo, thinking: io.thinking, aiLayout: cloud.enabled && token ? io.aiLayout : undefined, pin: CLOUD_ANCHORS ? io.pin : undefined }}
         selection={selected && selectedProduct ? (
           <SelectionActions selected={selectedProduct} variants={colourVariants(selectedProduct, FURNITURE).slice(0, 4)} pairs={pairs} swaps={alternatives(selectedProduct, FURNITURE).slice(0, 3)}
-            onSwap={placement.swap} onPick={setProductId} onRotate={placement.rotate} onCopy={placement.duplicate} onDelete={placement.remove} />
+            onSwap={placement.swap} onPick={setProductId} onCopy={placement.duplicate} onDelete={placement.remove} />
         ) : undefined} />
     </View>
   );

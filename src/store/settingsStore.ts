@@ -28,6 +28,9 @@ interface SettingsState {
   shareUsage: boolean;
   setShareUsage: (on: boolean) => void;
   /** Upload the picture of a saved design (a screenshot of the AR view, which includes the room) when syncing. Off by default: a photo is also uploaded when the user shares that design. */
+  /** The "how to" gesture demo is shown once per screen, then from the ? button. */
+  hintsSeen: { ar?: boolean; plan?: boolean };
+  markHint: (k: 'ar' | 'plan') => void;
   backupPhotos: boolean;
   setBackupPhotos: (on: boolean) => void;
 }
@@ -39,6 +42,7 @@ export const useSettings = create<SettingsState>()(
     scanned: null, setScanned: (scanned) => set({ scanned }),
     onboarded: false, preset: 'unknown', finish: (preset) => set({ onboarded: true, preset }),
     shareUsage: true, setShareUsage: (shareUsage) => set({ shareUsage }),
+    hintsSeen: {}, markHint: (k) => set((s) => ({ hintsSeen: { ...s.hintsSeen, [k]: true } })),
     backupPhotos: false, setBackupPhotos: (backupPhotos) => set({ backupPhotos }),
   }), {
     name: 'settings',

@@ -43,7 +43,7 @@
   "designs": {
     "designName": "Design name",
     "ar": "AR",
-    "plan": "Plan",
+    "plan": "View in my room",
     "rename": "Rename",
     "share": "Share",
     "delete": "Delete",
@@ -59,7 +59,7 @@
     "local": "On this phone only"
   },
   "item": {
-    "planView": "Plan view",
+    "planView": "View in my room",
     "viewInMyRoom": "View in my room",
     "viewOnHometown": "View on HomeTown",
     "thisItemIsNo": "This item is no longer available.",
@@ -108,8 +108,8 @@
     "goToSaved": "Go to Saved"
   },
   "roomDetail": {
-    "openInPlanView": "Open in plan view",
-    "tryInMyRoom": "Try in my room",
+    "openInPlanView": "View in my room",
+    "tryInMyRoom": "View in my room",
     "thisRoomIsNo": "This room is no longer available.",
     "piecesInThisRoom": "Pieces in this room"
   },
@@ -147,7 +147,7 @@
     "sizeLarge": "Large · about {{area}} m²",
     "noAr": "This phone cannot do AR, so you will draw your room on a plan instead.",
     "scanNote": "A camera scan replaces this guess with measured numbers.",
-    "planRoom": "Plan my room",
+    "planRoom": "View in my room",
     "scanRoom": "Scan my room"
   },
   "accountSection": {
@@ -332,7 +332,7 @@
     "design": "Plan of your design, {{w}} by {{d}} centimetres"
   },
   "nav": {
-    "plan": "Plan view",
+    "plan": "View in my room",
     "shared": "Shared design",
     "signIn": "Sign in",
     "signUp": "Create account",
@@ -436,5 +436,16 @@
   },
   "share": {
     "couldNotShare": "Could not share"
+  },
+  "hint": {
+    "title": "How to move your furniture",
+    "drag": "Drag a piece with one finger to move it",
+    "twist": "Twist with two fingers to turn it",
+    "pinch": "Pinch with two fingers to zoom in and out",
+    "pinchResize": "Pinch with two fingers to make it a little bigger or smaller",
+    "slide": "Slide one finger on the empty floor to move the view",
+    "gotIt": "Got it",
+    "help": "How to move furniture",
+    "planLine": "Drag to move · twist to turn · pinch to zoom · slide the floor to look around"
   }
 }

@@ -37,7 +37,8 @@ for (const file of walk('src')) {
 assert.ok(used > 250, `expected 250+ translated strings in use, found ${used}`);
 // dynamic keys: every expansion must exist (tabs in the AR sheet)
 for (const tab of ['Suggested', 'All', 'Rooms', 'Tools']) assert.ok(E.has(`sheet.tab${tab}`), `sheet.tab${tab}`);
-assert.deepEqual(dynamic.filter((d) => !d.startsWith('sheet.tab')), [], 'unexpected dynamic translation keys (extend this test)');
+for (const g of ['drag', 'twist', 'pinch', 'slide']) assert.ok(E.has(`hint.${g}`), `hint.${g}`);
+assert.deepEqual(dynamic.filter((d) => !d.startsWith('sheet.tab') && !d.startsWith('hint.')), [], 'unexpected dynamic translation keys (extend this test)');
 
 // no broken keys from the file-extension bug: groups never contain ".ts"
 for (const k of E.keys()) assert.ok(!/\.tsx?\./.test(k) && !k.endsWith('.ts'), `bad key ${k}`);
