@@ -12,6 +12,8 @@ import RawARScreen from '../screens/ARScreenGate';
 import RawRoomsScreen from '../screens/RoomsScreen';
 import RawRoomDetailScreen from '../screens/RoomDetailScreen';
 import RawPlanScreen from '../screens/PlanScreen';
+import RawRoomStudioScreen from '../screens/RoomStudioScreen';
+import { Ionicons } from '@expo/vector-icons';
 import RawSharedDesignScreen from '../screens/SharedDesignScreen';
 import RawSignInScreen from '../screens/auth/SignInScreen';
 import RawSignUpScreen from '../screens/auth/SignUpScreen';
@@ -32,6 +34,7 @@ const DesignsScreen = withBoundary(RawDesignsScreen, 'designs');
 const SettingsScreen = withBoundary(RawSettingsScreen, 'settings');
 const ARScreen = withBoundary(RawARScreen, 'ar');
 const RoomsScreen = withBoundary(RawRoomsScreen, 'rooms');
+const RoomStudioScreen = withBoundary(RawRoomStudioScreen, 'roomstudio');
 const RoomDetailScreen = withBoundary(RawRoomDetailScreen, 'roomdetail');
 const PlanScreen = withBoundary(RawPlanScreen, 'plan');
 const SharedDesignScreen = withBoundary(RawSharedDesignScreen, 'shareddesign');
@@ -48,6 +51,7 @@ export type RootStackParamList = {
   RoomDetail: { id: string };
   AR: { productId?: string; designId?: string; starter?: boolean; mode?: 'scan'; sharedItems?: import('../types/furniture').SavedDesign['items']; fromPlan?: boolean };
   Plan: { designId?: string; productId?: string } | undefined;
+  RoomStudio: { kind: import('../studio/studio').KindId };
   SharedDesign: { slug: string };
   SignIn: undefined;
   SignUp: undefined;
@@ -59,11 +63,18 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
+// [filled when selected, outline otherwise]
+const TAB_ICONS: Record<string, [keyof typeof Ionicons.glyphMap, keyof typeof Ionicons.glyphMap]> = {
+  Library: ['grid', 'grid-outline'], Rooms: ['home', 'home-outline'], Saved: ['heart', 'heart-outline'], Settings: ['settings', 'settings-outline'],
+};
+
 function Tabs() {
   return (
     <View style={{ flex: 1 }}>
     <OfflineBanner />
-    <Tab.Navigator screenOptions={{ tabBarActiveTintColor: colors.accent, headerShadowVisible: false, headerLeft: () => <View style={{ marginLeft: 16 }}><Logo size={28} showName={false} /></View> }}>
+    <Tab.Navigator screenOptions={({ route }) => ({
+      tabBarIcon: ({ color, size, focused }) => <Ionicons name={TAB_ICONS[route.name]?.[focused ? 0 : 1] ?? 'ellipse'} size={size} color={color} />,
+      tabBarActiveTintColor: colors.accent, headerShadowVisible: false, headerLeft: () => <View style={{ marginLeft: 16 }}><Logo size={28} showName={false} /></View> })}>
       <Tab.Screen name="Library" component={LibraryScreen} options={{ title: t('tabs.library') }} />
       <Tab.Screen name="Rooms" component={RoomsScreen} options={{ title: t('tabs.rooms') }} />
       <Tab.Screen name="Saved" component={DesignsScreen} options={{ title: t('tabs.saved') }} />
@@ -86,6 +97,7 @@ export function RootNavigator() {
       <Stack.Screen name="Item" component={ItemScreen} options={{ title: '' }} />
       <Stack.Screen name="RoomDetail" component={RoomDetailScreen} options={{ title: t('nav.room') }} />
       <Stack.Screen name="AR" component={ARScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="RoomStudio" component={RoomStudioScreen} options={{ title: t('rooms.designARoom') }} />
       <Stack.Screen name="Plan" component={PlanScreen} options={{ title: t('nav.plan') }} />
       <Stack.Screen name="SharedDesign" component={SharedDesignScreen} options={{ title: t('nav.shared') }} />
       <Stack.Screen name="SignIn" component={SignInScreen} options={{ title: t('nav.signIn') }} />

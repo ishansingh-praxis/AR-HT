@@ -17,7 +17,7 @@ let counter = 0;
 const uid = () => `pl${Date.now().toString(36)}${counter++}`;
 
 /** State and actions of the plan editor. Pieces are PlacedItems in metres so undo/redo is the same hook the AR screen uses. */
-export function usePlan(params: { designId?: string; productId?: string }) {
+export function usePlan(params: { designId?: string; productId?: string }, seed?: { room: RoomSize; pieces: { productId: string; x: number; z: number; rot: number }[] }) {
   usePlaceable();
   const scan = useSettings((s) => s.scanned);
   const preset = useSettings((s) => s.preset);
@@ -27,6 +27,7 @@ export function usePlan(params: { designId?: string; productId?: string }) {
 
   // First render decides the starting room and pieces: a saved design or curated room, else an empty room (plus the product the user came from).
   const start = useMemo(() => {
+    if (seed) return { room: seed.room, items: seed.pieces.map((p) => ({ uid: uid(), productId: p.productId, position: [p.x / 100, 0, p.z / 100] as [number, number, number], rotationY: p.rot, scale: 1 })) };
     const design = saved ?? (params.designId?.startsWith(ROOM_ID_PREFIX) ? (() => { const r = getRoom(params.designId!.slice(ROOM_ID_PREFIX.length)); return r ? roomToDesign(r) : undefined; })() : undefined);
     if (design) {
       const { room, origin } = fitRoomToItems(design.items, getFurniture, scan);
@@ -61,6 +62,17 @@ export function usePlan(params: { designId?: string; productId?: string }) {
   return {
     room, setRoom, pieces, items: history.items, selected, selectedId, setSelectedId, canUndo: history.canUndo, canRedo: history.canRedo,
     undo: () => { if (history.undo()) setSelectedId(null); }, redo: () => { if (history.redo()) setSelectedId(null); },
+    /** Replace the whole layout (and optionally the room) in one undoable step: used by the room planner's "suggest a set". */
+    loadLayout: (pieces: { productId: string; x: number; z: number; rot: number }[], nextRoom?: RoomSize) => {
+      if (nextRoom) setRoomState({ w: clampRoom(nextRoom.w), d: clampRoom(nextRoom.d) });
+      history.commit(pieces.map((p) => ({ uid: uid(), productId: p.productId, position: [p.x / 100, 0, p.z / 100] as [number, number, number], rotationY: p.rot, scale: 1 })));
+      setSelectedId(null);
+    },
+    addAt: (productId: string, x: number, z: number, rot: number) => {
+      const id = uid();
+      history.commit([...history.items, { uid: id, productId, position: [x / 100, 0, z / 100], rotationY: rot, scale: 1 }]);
+      setSelectedId(id); track('piece_placed', { id: productId });
+    },
     add: (productId: string) => {
       const id = uid();
       history.commit([...history.items, { uid: id, productId, position: [room.w / 200, 0, room.d / 200], rotationY: 0, scale: 1 }]);

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { KINDS, THEMES } from '../src/studio/studio.ts';
 
 const en = JSON.parse(fs.readFileSync('src/i18n/en.json', 'utf8'));
 const hi = JSON.parse(fs.readFileSync('src/i18n/hi.json', 'utf8'));
@@ -38,7 +39,9 @@ assert.ok(used > 250, `expected 250+ translated strings in use, found ${used}`);
 // dynamic keys: every expansion must exist (tabs in the AR sheet)
 for (const tab of ['Suggested', 'All', 'Rooms', 'Tools']) assert.ok(E.has(`sheet.tab${tab}`), `sheet.tab${tab}`);
 for (const g of ['drag', 'twist', 'pinch', 'slide']) assert.ok(E.has(`hint.${g}`), `hint.${g}`);
-assert.deepEqual(dynamic.filter((d) => !d.startsWith('sheet.tab') && !d.startsWith('hint.')), [], 'unexpected dynamic translation keys (extend this test)');
+for (const k of KINDS) for (const key of [`kinds.${k.id}`, `kinds.${k.id}Blurb`]) assert.ok(E.has(key), key);
+for (const th of THEMES) assert.ok(E.has(`themes.${th.id}`), `themes.${th.id}`);
+assert.deepEqual(dynamic.filter((d) => !/^(sheet\.tab|hint\.|kinds\.|themes\.)/.test(d)), [], 'unexpected dynamic translation keys (extend this test)');
 
 // no broken keys from the file-extension bug: groups never contain ".ts"
 for (const k of E.keys()) assert.ok(!/\.tsx?\./.test(k) && !k.endsWith('.ts'), `bad key ${k}`);

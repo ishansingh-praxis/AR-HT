@@ -44,3 +44,9 @@ a 3D artist, or an image-to-3D service with artist clean-up (`prompts/MODELS.md`
 
 ## Admin sample rooms
 Rooms published in the dashboard are stored on the server and served at `GET /v1/rooms`. The app still ships its 12 rooms in `src/data/rooms.json` and does not fetch server rooms yet.
+
+## Room studio, prices and the 360° view
+- **Rooms tab = "Design a room".** Six kinds (living, bedroom, dining, kitchen & dining, kids, study), five themes. `src/studio/studio.ts` is pure logic (tested in `scripts/studio.test.ts`): it picks real catalogue pieces per slot, scores them by theme (palette colour and material, because the CSV style column is unusable), lays them out without overlaps and keeps walkways clear, and totals a budget.
+- **Budget = lowest variant price x sets** (`setSize`). Prices come from the Shopify CSV (`npm run merge:prices`) and are shown by default (`EXPO_PUBLIC_SHOW_PRICES=0` hides them). Items without a price are listed and not counted.
+- **Thin stock:** kids and kitchen have few suitable pieces; "kitchen" is really a kitchen-and-dining nook, not a modular kitchen.
+- **360° view:** the proxy GLB is inlined as a data URI (no file access needed), the WebView reports ready/error, and on error or after 8 s it falls back to the photos with a message. The page does not scroll while a finger is on the viewer.

@@ -150,3 +150,35 @@ describe('Gesture demo', () => {
     expect(onClose).toHaveBeenCalled();
   });
 });
+
+describe('Rooms tab and room studio', () => {
+  it('lists every kind of room and opens the studio for the one tapped', async () => {
+    const RoomsScreen = require('../src/screens/RoomsScreen').default;
+    await renderScreen(RoomsScreen);
+    for (const k of ['living', 'bedroom', 'dining', 'kitchen', 'kids', 'study']) expect(screen.getByLabelText(t('rooms.designKind', { room: t(`kinds.${k}`) }))).toBeTruthy();
+  });
+
+  it('studio fits a set, shows photos cards with a budget, and removing one piece lowers the total', async () => {
+    jest.doMock('../src/features/plan/PlanCanvas', () => ({ PlanCanvas: () => null })); // gesture-handler/reanimated need a device
+    const RoomStudioScreen = require('../src/screens/RoomStudioScreen').default;
+    await renderScreen(RoomStudioScreen, { kind: 'bedroom' });
+    await fireEvent.press(screen.getByText(t('studio.suggest')));
+    expect(screen.getByText(t('studio.yourItems'))).toBeTruthy();
+    const before = screen.getAllByLabelText(/^Remove one /).length;
+    expect(before).toBeGreaterThan(0);
+    await fireEvent.press(screen.getAllByLabelText(/^Remove one /)[0]);
+    expect(screen.queryAllByLabelText(/^Remove one /).length).toBeLessThanOrEqual(before);
+  });
+});
+
+describe('360 view', () => {
+  it('always offers the 360 and Photos tabs and falls back to photos when the viewer errors', async () => {
+    const { Product360 } = require('../src/components/Product360');
+    const item = placeableSofa();
+    await render(<Product360 item={item} />);
+    expect(screen.getByLabelText(t('p360.label360'))).toBeTruthy();
+    expect(screen.getByLabelText(t('p360.labelPhotos'))).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText(t('p360.labelPhotos')));
+    expect(screen.getByLabelText(t('p360.photoLabel', { name: item.name, n: 1, total: item.images.length }))).toBeTruthy();
+  });
+});

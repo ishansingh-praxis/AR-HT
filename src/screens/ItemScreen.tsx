@@ -1,5 +1,5 @@
 import { t } from '../i18n';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, HeartButton } from '../components/ui';
@@ -21,13 +21,14 @@ export default function ItemScreen({ navigation, route }: NativeStackScreenProps
   const item = getFurniture(route.params.id);
   const saved = useWishlist((w) => (item ? isSaved(w.items, item.id) : false));
   const toggle = useWishlist((w) => w.toggle);
+  const [turning, setTurning] = useState(false);
   const noAR = useSettings((s) => s.arSupported === false);
   useEffect(() => { if (item) track('item_viewed', { id: item.id }); }, [item?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!item) return <Text style={{ padding: 20 }}>{t('item.thisItemIsNo')}</Text>;
   const variants = colourVariants(item, all);
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.bg }}>
-      <Product360 item={item} />
+    <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} scrollEnabled={!turning}>
+      <Product360 item={item} onInteract={setTurning} />
       <View style={{ padding: 18 }}>
         <View style={s.titleRow}>
           <View style={{ flex: 1 }}>

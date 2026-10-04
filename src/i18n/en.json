@@ -105,7 +105,8 @@
     "closeList": "Close list",
     "addPiece": "Add piece",
     "stayHere": "Stay here",
-    "goToSaved": "Go to Saved"
+    "goToSaved": "Go to Saved",
+    "sizeLabel": "{{label}} in centimetres"
   },
   "roomDetail": {
     "openInPlanView": "View in my room",
@@ -325,7 +326,8 @@
     "tabPhotos": "Photos ({{count}})",
     "label360": "360 degree view",
     "labelPhotos": "Photos",
-    "photoLabel": "{{name}}, photo {{n}} of {{total}}"
+    "photoLabel": "{{name}}, photo {{n}} of {{total}}",
+    "unavailable": "The 3D view could not start, so here are the photos. Tap 360° view to try again."
   },
   "roomPlan": {
     "room": "Plan of {{title}}, {{w}} by {{d}} centimetres",
@@ -377,7 +379,11 @@
     "fits": "Fits your scanned room",
     "largerScanned": "Larger than your scanned room",
     "larger": "Larger than your room",
-    "showType": "Show {{type}} rooms"
+    "showType": "Show {{type}} rooms",
+    "designARoom": "Design a room",
+    "designSub": "Pick a room and a theme. We fit a matching set of HomeTown furniture into it and keep a running budget.",
+    "designKind": "Design a {{room}}",
+    "sampleRooms": "Sample rooms"
   },
   "shared": {
     "openFailed": "Could not open this link.",
@@ -447,5 +453,62 @@
     "gotIt": "Got it",
     "help": "How to move furniture",
     "planLine": "Drag to move · twist to turn · pinch to zoom · slide the floor to look around"
+  },
+  "kinds": {
+    "living": "Living room",
+    "livingBlurb": "Sofa, coffee table, TV unit and an accent chair",
+    "bedroom": "Bedroom",
+    "bedroomBlurb": "Bed, bedside tables, wardrobe and drawers",
+    "dining": "Dining room",
+    "diningBlurb": "Dining table, chairs and a sideboard",
+    "kitchen": "Kitchen & dining",
+    "kitchenBlurb": "A breakfast table, chairs and a bar unit",
+    "kids": "Kids room",
+    "kidsBlurb": "Bed, study table, chair and storage",
+    "study": "Study",
+    "studyBlurb": "Desk, chair and storage"
+  },
+  "themes": {
+    "modern": "Modern",
+    "warm": "Warm wood",
+    "classic": "Classic",
+    "minimal": "Minimal",
+    "bold": "Bright & bold"
+  },
+  "studio": {
+    "title": "Design your {{room}}",
+    "theme": "Theme",
+    "themeLabel": "Theme {{name}}",
+    "estimatedTotal": "Estimated total",
+    "fromPrices": "lowest listed price of each item",
+    "pieceCount_one": "{{count}} piece",
+    "pieceCount_other": "{{count}} pieces",
+    "myBudget": "My budget (optional)",
+    "over": "{{amount}} over your budget",
+    "left": "{{amount}} left in your budget",
+    "unpriced_one": "{{count}} item has no listed price and is not counted",
+    "unpriced_other": "{{count}} items have no listed price and are not counted",
+    "budgetLabel": "Estimated total {{total}} for {{count}} pieces",
+    "fitBudget": "Fit a set to my budget",
+    "width": "Room width (cm)",
+    "depth": "Room depth (cm)",
+    "suggest": "Suggest a new set",
+    "unplaced_one": "{{count}} piece did not fit in this room. Try a bigger room size or remove something.",
+    "unplaced_other": "{{count}} pieces did not fit in this room. Try a bigger room size or remove something.",
+    "yourItems": "Your items",
+    "emptyRoom": "No items yet. Tap Suggest a new set or Add furniture.",
+    "addFurniture": "Add furniture",
+    "forThisRoom": "For this room",
+    "allFurniture": "All furniture",
+    "addProduct": "Add {{name}}",
+    "noSpaceTitle": "No space left",
+    "noSpaceBody": "There is no free spot for {{name}} that keeps a walkway clear. Try a bigger room or remove a piece.",
+    "rowLabel": "{{name}}, {{count}} in the room, {{price}}",
+    "noPrice": "no price listed",
+    "setsLine": "{{pieces}} pieces = {{sets}} sets",
+    "piecesLine_one": "{{count}} piece",
+    "piecesLine_other": "{{count}} pieces",
+    "removeOne": "Remove one {{name}}",
+    "addOne": "Add one more {{name}}"
   }
 }

@@ -58,7 +58,7 @@ export const useCatalogue = create<CatalogueState>()(
     {
       name: 'catalogue',
       // Bump when the bundled catalogue changes, so installed apps don't keep serving an old cached copy.
-      version: 6,
+      version: 7,
       migrate: () => ({ source: 'bundled' as const, version: 0 }),
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({ source: s.source, version: s.version }),
