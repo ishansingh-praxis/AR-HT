@@ -28,11 +28,11 @@ const putModel = async (productId, tok = editor) => {
 };
 
 before(async () => {
-  db = openDb(); seedProducts(db, catalogue); seedRooms(db, rooms);
+  db = await openDb(); await seedProducts(db, catalogue); await seedRooms(db, rooms);
   const app = createApp({ db, jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'u'), publicUrl: 'http://api.test', authLimit: 3000, mail: { send: async () => {} } });
   await new Promise((r) => { server = app.listen(0, r); });
   base = `http://localhost:${server.address().port}`;
-  const mk = async (email, role) => { const s = (await call('POST', '/v1/auth/register', { json: { email, password: PW } })).body; if (role !== 'user') db.prepare('UPDATE users SET role=? WHERE email=?').run(role, email); return s.accessToken; };
+  const mk = async (email, role) => { const s = (await call('POST', '/v1/auth/register', { json: { email, password: PW } })).body; if (role !== 'user') await db.prepare('UPDATE users SET role=? WHERE email=?').run(role, email); return s.accessToken; };
   admin = await mk('admin@x.com', 'admin'); editor = await mk('editor@x.com', 'editor'); user = await mk('user@x.com', 'user');
   // a product whose listed size matches the example GLB, for model tests
   await call('POST', '/v1/admin/products', { token: editor, body: productForm({ id: 'sofa-rev', name: 'Review Sofa', category: 'Sofa', role: 'sofa', dimensionsCm: { w: 219, d: 102, h: 79 } }) });
@@ -66,19 +66,19 @@ const CSV = [
 
 test('import: preview shows the diff, publish applies it, a missing product is only removed on request', async () => {
   assert.equal((await call('POST', '/v1/admin/import', { token: editor, body: form('file', 'not,a,shopify\n1,2,3', 'x.csv') })).status, 422);
-  const v0 = currentVersion(db);
+  const v0 = await currentVersion(db);
   const pre = await call('POST', '/v1/admin/import', { token: editor, body: form('file', CSV, 'export.csv') });
   assert.equal(pre.status, 201);
   assert.deepEqual(pre.body.diff.added, ['import-sofa']);
   assert.equal(pre.body.diff.counts.removed > 100, true, 'everything else is "missing" from this tiny file');
   assert.equal((await call('GET', '/v1/products/import-sofa')).status, 404, 'nothing changes before publish');
-  assert.equal(currentVersion(db), v0);
+  assert.equal(await currentVersion(db), v0);
 
   const pub = await call('POST', `/v1/admin/import/${pre.body.id}/publish`, { token: editor, json: {} });
   assert.equal(pub.status, 200);
   assert.equal(pub.body.removed, 0, 'missing products stay unless removeMissing is true');
   assert.equal((await call('GET', '/v1/products/import-sofa')).status, 200);
-  assert.ok(currentVersion(db) > v0, 'catalogue version bumped');
+  assert.ok(await currentVersion(db) > v0, 'catalogue version bumped');
   assert.equal((await call('GET', '/v1/products?limit=100')).body.total, catalogue.length + 2, 'import-sofa and sofa-rev added, nothing removed');
   assert.equal((await call('POST', `/v1/admin/import/${pre.body.id}/publish`, { token: editor, json: {} })).status, 404, 'a job publishes once');
   const delta = (await call('GET', `/v1/catalogue?since=${v0}`)).body;
@@ -109,12 +109,12 @@ test('model review: submit waits, reject needs a reason, approve publishes and b
   const up2 = await putModel('sofa-rev');
   assert.equal(up2.version, up1.version + 1);
   await call('POST', '/v1/admin/models/sofa-rev/validate', { token: editor, json: { key: up2.key, review: true } });
-  const v = currentVersion(db);
+  const v = await currentVersion(db);
   const ok = await call('POST', `/v1/admin/models/sofa-rev/${up2.version}/approve`, { token: editor });
   assert.equal(ok.status, 200);
   assert.equal(ok.body.product.modelStatus, 'ready');
   assert.match(ok.body.product.model3D.url, /sofa-rev-v2\.glb$/);
-  assert.ok(currentVersion(db) > v);
+  assert.ok(await currentVersion(db) > v);
   assert.equal((await call('POST', `/v1/admin/models/sofa-rev/${up2.version}/approve`, { token: editor })).status, 409, 'only once');
   const log = (await call('GET', '/v1/admin/audit', { token: admin })).body.map((x) => x.action);
   for (const a of ['model.submit', 'model.reject', 'model.approve']) assert.ok(log.includes(a), a);
@@ -145,13 +145,13 @@ test('rooms: a bad room is refused with plain-English problems; a good one is sa
 });
 
 test('stats: totals, rates, daily series and top products from anonymous events', async () => {
-  const now = Date.now(), ins = db.prepare('INSERT INTO events(device_id,name,ts,props) VALUES(?,?,?,?)');
-  const ev = (dev, name, ago, props = {}) => ins.run(dev, name, now - ago, JSON.stringify(props));
+  const now = Date.now();
+  const ev = async (dev, name, ago, props = {}) => db.run('INSERT INTO events(device_id,name,ts,props) VALUES(?,?,?,?)', dev, name, now - ago, JSON.stringify(props));
   const H = 3600 * 1000;
-  ev('dev-aaaa1111', 'ar_opened', H); ev('dev-aaaa1111', 'room_scanned', H); ev('dev-aaaa1111', 'piece_placed', H, { id: 'sofa-leather' });
-  ev('dev-aaaa1111', 'rec_shown', H); ev('dev-bbbb2222', 'ar_opened', 2 * H); ev('dev-bbbb2222', 'piece_placed', 2 * H, { id: 'sofa-leather' });
-  ev('dev-bbbb2222', 'piece_placed', 2 * H, { id: 'sofa-velvet' }); ev('dev-bbbb2222', 'rec_shown', 2 * H); ev('dev-bbbb2222', 'rec_placed', 2 * H, { id: 'sofa-velvet' });
-  ev('dev-old', 'ar_opened', 90 * 24 * H);
+  await ev('dev-aaaa1111', 'ar_opened', H); await ev('dev-aaaa1111', 'room_scanned', H); await ev('dev-aaaa1111', 'piece_placed', H, { id: 'sofa-leather' });
+  await ev('dev-aaaa1111', 'rec_shown', H); await ev('dev-bbbb2222', 'ar_opened', 2 * H); await ev('dev-bbbb2222', 'piece_placed', 2 * H, { id: 'sofa-leather' });
+  await ev('dev-bbbb2222', 'piece_placed', 2 * H, { id: 'sofa-velvet' }); await ev('dev-bbbb2222', 'rec_shown', 2 * H); await ev('dev-bbbb2222', 'rec_placed', 2 * H, { id: 'sofa-velvet' });
+  await ev('dev-old', 'ar_opened', 90 * 24 * H);
   const s = (await call('GET', '/v1/admin/stats', { token: editor })).body;
   assert.equal(s.totals.devices, 2);
   assert.equal(s.totals.arSessions, 2);

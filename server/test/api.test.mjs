@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { openDb, seedProducts, seedRooms } from '../src/db.mjs';
+import { openDb, seedProducts, seedRooms, migrateModelKeys } from '../src/db.mjs';
 import { createApp } from '../src/app.mjs';
 
 const catalogue = JSON.parse(fs.readFileSync('../src/data/catalogue.json', 'utf8'));
@@ -26,15 +26,15 @@ const newProduct = (o = {}) => ({ id: 'sofa-new', name: 'New Sofa', category: 'S
 const upload = (p, file = glb) => { const f = new FormData(); f.set('product', JSON.stringify(p)); f.set('model', new Blob([fs.readFileSync(file)]), 'm.glb'); return f; };
 
 before(async () => {
-  const db = openDb(); db0 = db;
-  seedProducts(db, catalogue); seedRooms(db, rooms);
+  const db = await openDb(); db0 = db;
+  await seedProducts(db, catalogue); await seedRooms(db, rooms);
   const app = createApp({ db, jwtSecret: 't', uploadDir: tmp, publicUrl: 'http://host-a', authLimit: 1000, anthropicKey: 'k',
     fetchImpl: async (_u, init) => { lastBody = JSON.parse(init.body); return mockReply(); } });
   await new Promise((r) => { server = app.listen(0, r); });
   base = `http://localhost:${server.address().port}`;
   const reg = await call('POST', '/auth/register', { json: { email: 'admin@x.com', password: 'Hometown-Pass-77' } });
   assert.equal(reg.body.user.role, 'user', 'a former admin email no longer grants admin at sign-up');
-  db.prepare("UPDATE users SET role='admin' WHERE email='admin@x.com'").run(); // what scripts/make-admin.mjs does
+  await db.prepare("UPDATE users SET role='admin' WHERE email='admin@x.com'").run(); // what scripts/make-admin.mjs does
   adminTok = reg.body.token;
   userTok = (await call('POST', '/auth/register', { json: { email: 'u@x.com', password: 'Hometown-Pass-77' } })).body.token;
 });
@@ -129,7 +129,7 @@ test('AI layout: validates the model answer, drops unknown ids and bad sides, ne
 });
 
 test('AI layout: 503 when no API key is configured', async () => {
-  const db = openDb(); seedProducts(db, catalogue);
+  const db = await openDb(); await seedProducts(db, catalogue);
   const app2 = createApp({ db, jwtSecret: 't', uploadDir: tmp, authLimit: 1000 });
   const s2 = await new Promise((r) => { const x = app2.listen(0, () => r(x)); });
   const b2 = `http://localhost:${s2.address().port}`;
@@ -152,11 +152,12 @@ test('catalogue: paging by offset returns every product (client fetches all page
 
 test('model URLs are built from PUBLIC_URL at read time, and old rows are migrated to keys', async () => {
   const mk = (publicUrl, db) => createApp({ db, jwtSecret: 't', uploadDir: tmp, publicUrl, authLimit: 1000 });
-  const db = openDb(); seedProducts(db, catalogue);
+  const db = await openDb(); await seedProducts(db, catalogue);
   const id = catalogue.find((p) => p.category === 'Bed').id;
-  const row = JSON.parse(db.prepare('SELECT data FROM products WHERE id=?').get(id).data);
+  const row = JSON.parse((await db.prepare('SELECT data FROM products WHERE id=?').get(id)).data);
   row.model3D = { url: 'http://old-host/files/models/legacy-v1.glb', version: 1, unit: 'm' };
-  db.prepare('UPDATE products SET data=? WHERE id=?').run(JSON.stringify(row), id);
+  await db.prepare('UPDATE products SET data=? WHERE id=?').run(JSON.stringify(row), id);
+  await migrateModelKeys(db); // runs when the database opens (here: after we planted an old-style row)
   const get = async (publicUrl) => {
     const s = await new Promise((r) => { const x = mk(publicUrl, db).listen(0, () => r(x)); });
     const body = await (await fetch(`http://localhost:${s.address().port}/v1/products/${id}`)).json();
@@ -164,11 +165,11 @@ test('model URLs are built from PUBLIC_URL at read time, and old rows are migrat
   };
   assert.equal((await get('http://cdn-a')).model3D.url, 'http://cdn-a/files/models/legacy-v1.glb');
   assert.equal((await get('http://cdn-b')).model3D.url, 'http://cdn-b/files/models/legacy-v1.glb');
-  assert.equal(JSON.parse(db.prepare('SELECT data FROM products WHERE id=?').get(id).data).model3D.key, 'models/legacy-v1.glb');
+  assert.equal(JSON.parse((await db.prepare('SELECT data FROM products WHERE id=?').get(id)).data).model3D.key, 'models/legacy-v1.glb');
 });
 
 test('AI layout: per-user limits per minute and per day return 429', async () => {
-  const db = openDb(); seedProducts(db, catalogue);
+  const db = await openDb(); await seedProducts(db, catalogue);
   const app2 = createApp({ db, jwtSecret: 't', uploadDir: tmp, authLimit: 1000, anthropicKey: '', layoutLimits: { perMinute: 2, perDay: 3 } });
   const s2 = await new Promise((r) => { const x = app2.listen(0, () => r(x)); });
   const b2 = `http://localhost:${s2.address().port}`;

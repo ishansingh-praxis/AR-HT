@@ -18,22 +18,22 @@ export function shareRouter({ db, auth, storage, filesBase, share }) {
   const web = Router();   // mounted at /
   const shareUrl = (s) => `${share.baseUrl}/d/${s}`;
 
-  const ownDesign = (id, userId) => {
-    const d = db.prepare('SELECT * FROM designs WHERE id=? AND user_id=? AND deleted_at IS NULL').get(id, userId);
+  const ownDesign = async (id, userId) => {
+    const d = await db.prepare('SELECT * FROM designs WHERE id=? AND user_id=? AND deleted_at IS NULL').get(id, userId);
     if (!d) throw err(404, 'Design not found');
     return d;
   };
 
   // Create (idempotent) or revoke a share link
-  api.post('/designs/:id/share', auth, (req, res) => {
-    const d = ownDesign(req.params.id, req.user.id);
+  api.post('/designs/:id/share', auth, async (req, res) => {
+    const d = await ownDesign(req.params.id, req.user.id);
     let s = d.share_slug;
-    if (!s) { s = slug(); db.prepare('UPDATE designs SET share_slug=? WHERE id=?').run(s, d.id); }
+    if (!s) { s = slug(); await db.prepare('UPDATE designs SET share_slug=? WHERE id=?').run(s, d.id); }
     res.status(s === d.share_slug ? 200 : 201).json({ slug: s, url: shareUrl(s) });
   });
-  api.delete('/designs/:id/share', auth, (req, res) => {
-    const d = ownDesign(req.params.id, req.user.id);
-    db.prepare('UPDATE designs SET share_slug=NULL WHERE id=?').run(d.id);
+  api.delete('/designs/:id/share', auth, async (req, res) => {
+    const d = await ownDesign(req.params.id, req.user.id);
+    await db.prepare('UPDATE designs SET share_slug=NULL WHERE id=?').run(d.id);
     res.status(204).end();
   });
 
@@ -46,18 +46,18 @@ export function shareRouter({ db, auth, storage, filesBase, share }) {
   });
 
   /** The shared design with everything needed to show it. No account details. */
-  function loadShared(s) {
-    const d = db.prepare('SELECT * FROM designs WHERE share_slug=? AND deleted_at IS NULL').get(String(s));
+  async function loadShared(s) {
+    const d = await db.prepare('SELECT * FROM designs WHERE share_slug=? AND deleted_at IS NULL').get(String(s));
     if (!d) return null;
     const data = JSON.parse(d.data);
     const ids = [...new Set(data.items.map((i) => i.productId))];
-    const rows = ids.length ? db.prepare(`SELECT data FROM products WHERE id IN (${ids.map(() => '?').join(',')})`).all(...ids) : [];
+    const rows = ids.length ? await db.prepare(`SELECT data FROM products WHERE id IN (${ids.map(() => '?').join(',')})`).all(...ids) : [];
     const products = rows.map((r) => productFromRow(r, filesBase));
     return { design: d, data, products };
   }
 
-  api.get('/shared/:slug', (req, res) => {
-    const s = loadShared(req.params.slug);
+  api.get('/shared/:slug', async (req, res) => {
+    const s = await loadShared(req.params.slug);
     if (!s) throw err(404, 'This link is no longer available');
     res.set('Cache-Control', 'public, max-age=60').json({
       slug: req.params.slug, name: s.design.name, roomType: s.data.roomType, frame: s.data.frame ?? false, scan: s.data.scan,
@@ -67,8 +67,8 @@ export function shareRouter({ db, auth, storage, filesBase, share }) {
   });
 
   // The public page: plain HTML, no scripts, Open Graph tags for chat previews.
-  web.get('/d/:slug', (req, res) => {
-    const s = loadShared(req.params.slug);
+  web.get('/d/:slug', async (req, res) => {
+    const s = await loadShared(req.params.slug);
     res.set('Content-Security-Policy', "default-src 'none'; img-src 'self' https: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'");
     if (!s) return res.status(404).type('html').send(page({ title: 'Link not available', body: '<p>This shared design is no longer available. The owner may have stopped sharing it.</p>', share }));
     const find = (id) => s.products.find((p) => p.id === id);

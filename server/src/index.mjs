@@ -12,10 +12,10 @@ const config = loadConfig();
 if (!process.env.JWT_SECRET) console.warn('JWT_SECRET not set: using an insecure development secret.');
 
 const onError = initMonitoring({ dsn: config.sentryDsn, release: `hometown-ar-server@${pkg.version}`, environment: config.env });
-const db = openDb(config.dbFile ?? path.join(here, '../data/furni.db'));
+const db = await openDb(config.databaseUrl ?? config.dbFile ?? path.join(here, '../data/furni.db'), { ssl: config.databaseSsl, max: config.databasePool });
 const data = path.join(here, '../../src/data');
-seedProducts(db, JSON.parse(fs.readFileSync(path.join(data, 'catalogue.json'), 'utf8')));
-seedRooms(db, JSON.parse(fs.readFileSync(path.join(data, 'rooms.json'), 'utf8')));
+await seedProducts(db, JSON.parse(fs.readFileSync(path.join(data, 'catalogue.json'), 'utf8')));
+await seedRooms(db, JSON.parse(fs.readFileSync(path.join(data, 'rooms.json'), 'utf8')));
 
 const app = createApp({
   db, jwtSecret: config.jwtSecret, uploadDir: config.uploadDir ?? path.join(here, '../uploads'), publicUrl: config.publicUrl, cdnBaseUrl: config.cdnBaseUrl,
@@ -26,7 +26,7 @@ const server = app.listen(config.port, () => console.log(`HomeTown AR API on :${
 // Graceful shutdown: stop accepting connections, let in-flight requests finish, close the database.
 const stop = (signal) => {
   console.log(`${signal}: shutting down`);
-  server.close(() => { db.close(); process.exit(0); });
+  server.close(async () => { await db.close(); process.exit(0); });
   setTimeout(() => process.exit(1), 10_000).unref();
 };
 process.on('SIGTERM', () => stop('SIGTERM'));

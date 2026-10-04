@@ -1,16 +1,28 @@
-# Deploying the API (no Postgres, no cloud storage)
+# Deploying the API
 
-The server keeps everything on local disk:
+The server runs on **SQLite** (one local file, no setup: fine for development and a small pilot) or **PostgreSQL**
+(use this for the public launch). The same code and the same migrations run on both. Set `DATABASE_URL` and the server
+uses Postgres; leave it unset and it uses `DB_FILE`.
 
 | What | Where | Setting |
 |---|---|---|
-| Database | one SQLite file (WAL mode) | `DB_FILE` (default `server/data/furni.db`) |
+| Database (production) | managed PostgreSQL 14+ | `DATABASE_URL=postgres://user:pass@host:5432/db`, `DATABASE_SSL=1` if the host needs TLS, `DATABASE_POOL` (default 10 connections) |
+| Database (dev / pilot) | one SQLite file (WAL mode) | `DB_FILE` (default `server/data/furni.db`) |
 | Uploaded files (3D models, thumbnails) | a folder | `UPLOAD_DIR` (default `server/uploads`) |
-| Schema | versioned migrations that run on start | `npm run migrate` to run them by hand |
+| Schema | versioned migrations that run on start (a lock makes two servers starting together safe) | `npm run migrate` to run them by hand |
 
-Put both paths on a **persistent disk**. SQLite handles thousands of users on one small server; the catalogue is
-read-heavy and designs are small. If you outgrow one machine later, the SQL is plain and the storage layer
-(`server/src/lib/storage.mjs`) is the only file that touches the disk.
+### Going to Postgres
+1. Create a managed Postgres (Render, Neon, Supabase, AWS RDS, Google Cloud SQL). Use its connection string as `DATABASE_URL`.
+2. Start the server: it creates the tables and loads the bundled catalogue and sample rooms.
+3. Moving existing SQLite data (accounts, designs) is a one-off copy; the tables are identical. Ask for the copy script if you have real users on SQLite.
+4. Backups are the provider's (daily snapshots + point-in-time recovery). `npm run backup` is SQLite-only.
+
+### Still single-server: uploaded files
+3D models and design thumbnails are written to `UPLOAD_DIR`. With Postgres you can run several API servers, but they
+must share that folder (a network disk) or you must move `server/src/lib/storage.mjs` to S3 or Cloudflare R2. It is the
+only file that touches the disk, and `CDN_BASE_URL` already lets a CDN serve the files. Do this before running more than one server.
+
+With SQLite, put both paths on a **persistent disk**.
 
 ## Run locally
 ```bash

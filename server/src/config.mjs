@@ -14,6 +14,11 @@ const schema = z.object({
   ANTHROPIC_API_KEY: z.string().default(''),
   LAYOUT_MODEL: z.string().default('claude-sonnet-5-5'),
   DB_FILE: z.string().optional(),
+  /** PostgreSQL connection string (postgres://user:pass@host:5432/db). When set, it is used instead of DB_FILE. */
+  DATABASE_URL: z.string().optional(),
+  /** Set to 1 for managed Postgres that requires TLS (most hosted services do). */
+  DATABASE_SSL: z.string().default(''),
+  DATABASE_POOL: z.coerce.number().int().min(1).max(100).default(10),
   LOG_LEVEL: z.string().default('info'),
   /** Error reporting (Sentry). Leave empty to switch it off. */
   SENTRY_DSN: z.string().default(''),
@@ -48,6 +53,9 @@ export function loadConfig(env = process.env) {
     anthropicKey: e.ANTHROPIC_API_KEY,
     layoutModel: e.LAYOUT_MODEL,
     dbFile: e.DB_FILE,
+    databaseUrl: e.DATABASE_URL,
+    databaseSsl: e.DATABASE_SSL === '1',
+    databasePool: e.DATABASE_POOL,
     cdnBaseUrl: e.CDN_BASE_URL.replace(/\/$/, ''),
     uploadDir: e.UPLOAD_DIR,
     logLevel: e.LOG_LEVEL,

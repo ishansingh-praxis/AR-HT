@@ -24,7 +24,7 @@ const register = (email, password = PW) => call('POST', '/auth/register', { json
 const lastCode = (to) => [...outbox].reverse().find((m) => m.to === to).text.match(/(\d{6})/)[1];
 
 before(async () => {
-  db = openDb(); seedProducts(db, catalogue);
+  db = await openDb(); await seedProducts(db, catalogue);
   storageDir = path.join(tmp, 'uploads');
   const mailer = { outbox: [], send: async (m) => { mailer.outbox.push(m); } };
   outbox = mailer.outbox;
@@ -35,7 +35,7 @@ before(async () => {
   await new Promise((r) => { server = app.listen(0, r); });
   base = `http://localhost:${server.address().port}`;
   adminTok = (await register('root@x.com')).body.accessToken;
-  db.prepare("UPDATE users SET role='admin' WHERE email='root@x.com'").run();
+  await db.prepare("UPDATE users SET role='admin' WHERE email='root@x.com'").run();
 });
 after(() => server.close());
 
@@ -108,14 +108,14 @@ test('lockout: 10 wrong passwords lock the account for 15 minutes, even with the
   for (let i = 0; i < 10; i++) assert.equal((await call('POST', '/auth/login', { json: { email: 'lock@x.com', password: 'wrong-password' } })).status, 401);
   const locked = await call('POST', '/auth/login', { json: { email: 'lock@x.com', password: PW } });
   assert.equal(locked.status, 429);
-  db.prepare("UPDATE users SET locked_until=? WHERE email='lock@x.com'").run(Date.now() - 1); // time passes
+  await db.prepare("UPDATE users SET locked_until=? WHERE email='lock@x.com'").run(Date.now() - 1); // time passes
   assert.equal((await call('POST', '/auth/login', { json: { email: 'lock@x.com', password: PW } })).status, 200);
 });
 
 test('login upgrades an old bcrypt hash to scrypt', async () => {
-  db.prepare('INSERT INTO users(email,password_hash,role,created_at) VALUES(?,?,?,?)').run('legacy@x.com', bcrypt.hashSync(PW, 4), 'user', Date.now());
+  await db.prepare('INSERT INTO users(email,password_hash,role,created_at) VALUES(?,?,?,?)').run('legacy@x.com', bcrypt.hashSync(PW, 4), 'user', Date.now());
   assert.equal((await call('POST', '/auth/login', { json: { email: 'legacy@x.com', password: PW } })).status, 200);
-  assert.match(db.prepare("SELECT password_hash h FROM users WHERE email='legacy@x.com'").get().h, /^scrypt\$/);
+  assert.match((await db.prepare("SELECT password_hash h FROM users WHERE email='legacy@x.com'").get()).h, /^scrypt\$/);
   assert.equal((await call('POST', '/auth/login', { json: { email: 'legacy@x.com', password: PW } })).status, 200);
 });
 
@@ -136,7 +136,7 @@ test('verification codes expire after 15 minutes', async () => {
   const s = (await register('late@x.com')).body;
   await new Promise((r) => setTimeout(r, 20));
   const code = lastCode('late@x.com');
-  db.prepare("UPDATE email_codes SET expires_at=? WHERE user_id=(SELECT id FROM users WHERE email='late@x.com')").run(Date.now() - 1);
+  await db.prepare("UPDATE email_codes SET expires_at=? WHERE user_id=(SELECT id FROM users WHERE email='late@x.com')").run(Date.now() - 1);
   assert.equal((await call('POST', '/auth/verify-email/confirm', { token: s.accessToken, json: { code } })).status, 400);
 });
 
@@ -193,7 +193,7 @@ test('apple: private relay email, name only on first login, later logins by subj
 });
 
 test('social sign-in without server setup says so (501) instead of crashing', async () => {
-  const app = createApp({ db: openDb(), jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'u2'), mail: { send: async () => {} } });
+  const app = createApp({ db: await openDb(), jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'u2'), mail: { send: async () => {} } });
   const srv = await new Promise((r) => { const s = app.listen(0, () => r(s)); });
   const res = await fetch(`http://localhost:${srv.address().port}/v1/auth/google`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ idToken: 'z'.repeat(30) }) });
   assert.equal(res.status, 501);
@@ -209,9 +209,9 @@ test('me: update name; delete removes designs, wishlist, identities, tokens and 
   fs.mkdirSync(path.join(storageDir, 'thumbnails', String(id)), { recursive: true });
   fs.writeFileSync(path.join(storageDir, 'thumbnails', String(id), 'a.jpg'), 'x');
   assert.equal((await call('DELETE', '/me', { token: s.accessToken })).status, 204);
-  assert.equal(db.prepare('SELECT COUNT(*) n FROM designs WHERE user_id=?').get(id).n, 0);
-  assert.equal(db.prepare('SELECT COUNT(*) n FROM wishlist WHERE user_id=?').get(id).n, 0);
-  assert.equal(db.prepare('SELECT COUNT(*) n FROM refresh_tokens WHERE user_id=?').get(id).n, 0);
+  assert.equal((await db.prepare('SELECT COUNT(*) n FROM designs WHERE user_id=?').get(id)).n, 0);
+  assert.equal((await db.prepare('SELECT COUNT(*) n FROM wishlist WHERE user_id=?').get(id)).n, 0);
+  assert.equal((await db.prepare('SELECT COUNT(*) n FROM refresh_tokens WHERE user_id=?').get(id)).n, 0);
   assert.equal(fs.existsSync(path.join(storageDir, 'thumbnails', String(id))), false);
   assert.equal((await call('GET', '/me', { token: s.accessToken })).status, 401);
 });
@@ -235,7 +235,7 @@ test('roles: editor can manage products but not users or the audit log; admin wr
   assert.equal((await call('GET', `/admin/models/${catalogue[0].id}`, { token: ed.accessToken })).status, 200, 'editor can reach model tools');
   assert.equal((await call('GET', `/admin/models/${catalogue[0].id}`, { token: user.accessToken })).status, 403);
   // cannot change yourself
-  const rootId = db.prepare("SELECT id FROM users WHERE email='root@x.com'").get().id;
+  const rootId = (await db.prepare("SELECT id FROM users WHERE email='root@x.com'").get()).id;
   assert.equal((await call('PATCH', `/admin/users/${rootId}`, { token: adminTok, json: { role: 'user' } })).status, 400);
   // disabling kills sessions
   const uid = user.user.id;
@@ -249,7 +249,7 @@ test('roles: editor can manage products but not users or the audit log; admin wr
 });
 
 test('rate limits: login is limited per email', async () => {
-  const app = createApp({ db: openDb(), jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'u3'), authLimit: 15, mail: { send: async () => {} } });
+  const app = createApp({ db: await openDb(), jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'u3'), authLimit: 15, mail: { send: async () => {} } });
   const srv = await new Promise((r) => { const s = app.listen(0, () => r(s)); });
   const url = `http://localhost:${srv.address().port}/v1/auth/login`;
   const statuses = [];

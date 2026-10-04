@@ -7,7 +7,7 @@ import { openDb } from '../src/db.mjs';
 import { createApp } from '../src/app.mjs';
 import { DOCS, specYaml } from '../scripts/gen-openapi.mjs';
 
-const app = createApp({ db: openDb(), jwtSecret: 'x'.repeat(24), uploadDir: fs.mkdtempSync(path.join(os.tmpdir(), 'ht-oa-')), publicUrl: 'http://localhost:4000' });
+const app = createApp({ db: await openDb(), jwtSecret: 'x'.repeat(24), uploadDir: fs.mkdtempSync(path.join(os.tmpdir(), 'ht-oa-')), publicUrl: 'http://localhost:4000' });
 const routes = app.locals.routeTable();
 
 test('every route is documented, and every documented route exists', () => {

@@ -178,7 +178,7 @@ export function buildSpec(routes) {
 export const specYaml = (routes) => yaml(buildSpec(routes)) + '\n';
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const app = createApp({ db: openDb(), jwtSecret: 'x'.repeat(24), uploadDir: path.join(here, '../uploads'), publicUrl: 'http://localhost:4000' });
+  const app = createApp({ db: await openDb(), jwtSecret: 'x'.repeat(24), uploadDir: path.join(here, '../uploads'), publicUrl: 'http://localhost:4000' });
   fs.writeFileSync(path.join(here, '../openapi.yaml'), specYaml(app.locals.routeTable()));
   // docs/API.md: the same table in human form
   const rows = app.locals.routeTable().map((r) => {

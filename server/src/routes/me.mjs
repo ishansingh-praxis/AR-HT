@@ -25,16 +25,16 @@ document.getElementById('f').addEventListener('submit',async e=>{e.preventDefaul
 export function meRouter({ db, auth, storage, tokens }) {
   const r = Router();
   r.get('/', auth, (req, res) => res.json({ user: publicUser(req.user) }));
-  r.patch('/', auth, (req, res) => {
+  r.patch('/', auth, async (req, res) => {
     const { name } = z.object({ name: z.string().trim().min(1).max(80) }).parse(req.body);
-    db.prepare('UPDATE users SET name=? WHERE id=?').run(name, req.user.id);
+    await db.prepare('UPDATE users SET name=? WHERE id=?').run(name, req.user.id);
     res.json({ user: publicUser({ ...req.user, name }) });
   });
   // Deletes the account and everything tied to it: designs, wishlist, identities and tokens (cascade), and stored thumbnails.
-  r.delete('/', auth, (req, res) => {
-    tokens.revokeAll(req.user.id);
+  r.delete('/', auth, async (req, res) => {
+    await tokens.revokeAll(req.user.id);
     storage.deletePrefix(`thumbnails/${req.user.id}`);
-    db.prepare('DELETE FROM users WHERE id=?').run(req.user.id);
+    await db.prepare('DELETE FROM users WHERE id=?').run(req.user.id);
     res.status(204).end();
   });
   return r;

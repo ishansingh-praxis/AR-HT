@@ -8,7 +8,6 @@ import pino from 'pino';
 import pinoHttp from 'pino-http';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
-import { migrateModelKeys } from './db.mjs';
 import { authMiddleware } from './middleware/auth.mjs';
 import { createTokens, createCodes } from './lib/tokens.mjs';
 import { createMailer } from './lib/mailer.mjs';
@@ -37,7 +36,6 @@ export function createApp({
   const app = express();
   const mounts = []; // [prefix, router] for every router, so the full route table can be listed
   const mount = (parent, prefix, prefixOf, router) => { parent.use(prefix, router); mounts.push([`${prefixOf}${prefix === '/' ? '' : prefix}`, router]); };
-  migrateModelKeys(db);
   // Files live on local disk, served from this server's /files unless CDN_BASE_URL points at a static host in front of the folder.
   const filesBase = cdnBaseUrl || `${publicUrl}/files`;
   const storage = createStorage({ dir: uploadDir, publicBase: filesBase, secret: jwtSecret });
@@ -69,8 +67,8 @@ export function createApp({
   app.use('/files', express.static(uploadDir, { maxAge: '365d', immutable: true, dotfiles: 'deny', index: false }));
 
   app.get('/health', (_req, res) => res.json({ ok: true }));
-  app.get('/ready', (_req, res) => {
-    try { db.prepare('SELECT 1').get(); res.json({ ok: true }); } catch { res.status(503).json({ ok: false }); }
+  app.get('/ready', async (_req, res) => {
+    try { await db.prepare('SELECT 1').get(); res.json({ ok: true }); } catch { res.status(503).json({ ok: false }); }
   });
 
   const ctx = { db, auth, admin, editor, tokens, codes, mailer, verifyGoogle, verifyApple, publicUrl, filesBase, storage, uploadDir, authLimit, eventLimit, anthropicKey, layoutModel, layoutLimits, fetchImpl };

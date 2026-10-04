@@ -53,3 +53,6 @@ Rooms published in the dashboard are stored on the server and served at `GET /v1
 
 ## Free local photo-to-3D (TripoSR)
 `scripts/triposr_local.py` makes models with the open-weight TripoSR model on your own machine (no key, no credits, photos stay local), then `node scripts/image-to-3d.mjs --normalise` scales, grounds, checks and publishes them. One photo only, so back and sides are invented: review before release. Written but not run in this repo (this machine has CPU-only torch and no TripoSR checkout).
+
+## PostgreSQL for production (reverses "no Postgres")
+The user first asked to avoid Postgres, then asked for a public Play Store launch for millions of customers, so the server now runs on SQLite (default, dev/pilot) or PostgreSQL (`DATABASE_URL`). One async `Db` wrapper (`server/src/db.mjs`), one set of migrations (type names filled in per engine). Tests run on SQLite, on PGlite (`TEST_DB=pglite`, a real PostgreSQL engine in memory) and in CI against a real Postgres service. The node-postgres driver itself has not been run on this machine (no Docker/Postgres here); CI exercises it. Uploaded files are still local disk: move `lib/storage.mjs` to S3/R2 before running more than one API server.

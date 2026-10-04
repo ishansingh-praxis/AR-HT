@@ -21,7 +21,7 @@ export function layoutRouter({ db, auth, filesBase, anthropicKey, layoutModel, l
   r.post('/suggest', auth, limit, async (req, res) => {
     if (!anthropicKey) throw err(503, 'AI layout suggestions are not configured on this server');
     const { roomType, anchorId, room } = layoutRequest.parse(req.body);
-    const all = db.prepare('SELECT data FROM products ORDER BY rowid').all().map((row) => productFromRow(row, filesBase));
+    const all = (await db.prepare(`SELECT data FROM products ORDER BY ${db.sql.order}`).all()).map((row) => productFromRow(row, filesBase));
     const placeable = all.filter((p) => (p.model3D || p.proxy) && !p.sizeReview);
     const anchor = placeable.find((p) => p.id === anchorId);
     if (!anchor) throw err(404, 'Anchor product not found or not placeable');

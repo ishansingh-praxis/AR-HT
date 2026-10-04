@@ -22,7 +22,7 @@ const bed = catalogue.find((p) => p.role === 'bed' && !p.sizeReview);
 const item = (p, x, z, rot = 0) => ({ productId: p.id, offset: [x, 0, z], rotationY: rot, scale: 1 });
 
 before(async () => {
-  db = openDb(); seedProducts(db, catalogue);
+  db = await openDb(); await seedProducts(db, catalogue);
   const app = createApp({
     db, jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'uploads'), publicUrl: 'http://api.test', authLimit: 3000, mail: { send: async () => {} },
     share: { domain: 'share.test', appleTeamId: 'TEAM123456', iosBundleId: 'in.hometown.roomdesigner', androidPackage: 'in.hometown.roomdesigner', androidCerts: ['AA:BB'], playStoreUrl: 'https://play.example/app' },

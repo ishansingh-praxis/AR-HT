@@ -27,13 +27,13 @@ const upload = (p, file = glb) => { const f = new FormData(); f.set('product', J
 const register = async (email) => (await call('POST', '/auth/register', { json: { email, password: 'Hometown-Pass-77' } })).body.token;
 
 before(async () => {
-  db = openDb();
-  seedProducts(db, catalogue); seedRooms(db, rooms);
+  db = await openDb();
+  await seedProducts(db, catalogue); await seedRooms(db, rooms);
   const app = createApp({ db, jwtSecret: 't', uploadDir: tmp, publicUrl: 'http://host-a', authLimit: 1000, eventLimit: 1000, corsOrigins: ['https://admin.example'] });
   await new Promise((r) => { server = app.listen(0, r); });
   base = `http://localhost:${server.address().port}`;
   adminTok = await register('admin@x.com');
-  db.prepare("UPDATE users SET role='admin' WHERE email='admin@x.com'").run();
+  await db.prepare("UPDATE users SET role='admin' WHERE email='admin@x.com'").run();
 });
 after(() => server.close());
 
@@ -138,13 +138,13 @@ test('designs: since, soft delete, replace items, stale updatedAt is 409, thumbn
 test('events: allow-listed names, flat props, 50 per batch', async () => {
   const ev = (name, props = {}) => ({ name, ts: Date.now(), props });
   const post = (json) => call('POST', '/events', { json });
-  const before0 = Number(db.prepare('SELECT COUNT(*) AS n FROM events').get().n);
+  const before0 = Number((await db.prepare('SELECT COUNT(*) AS n FROM events').get()).n);
   assert.equal((await post({ deviceId: 'device-12345', events: [ev('rec_shown', { productId: 'x', n: 3 }), ev('room_scanned', { areaM2: 14, corners: 4 })] })).status, 204);
   assert.equal((await post({ deviceId: 'device-12345', events: [ev('steal_camera_frame')] })).status, 400);
   assert.equal((await post({ deviceId: 'device-12345', events: [ev('rec_shown', { frame: { nested: 'object' } })] })).status, 400, 'props must be flat scalars');
   assert.equal((await post({ deviceId: 'short', events: [ev('rec_shown')] })).status, 400);
   assert.equal((await post({ deviceId: 'device-12345', events: Array.from({ length: 51 }, () => ev('rec_shown')) })).status, 400);
-  assert.equal(Number(db.prepare('SELECT COUNT(*) AS n FROM events').get().n) - before0, 2, 'only the valid batch is stored');
+  assert.equal(Number((await db.prepare('SELECT COUNT(*) AS n FROM events').get()).n) - before0, 2, 'only the valid batch is stored');
 });
 
 test('hygiene: request id, /ready, unknown route 404, bad JSON 400, CORS allow-list', async () => {

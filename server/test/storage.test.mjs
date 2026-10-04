@@ -25,38 +25,39 @@ const call = async (method, url, { token, json, body, headers } = {}) => {
 };
 
 before(async () => {
-  db = openDb(); seedProducts(db, catalogue);
+  db = await openDb(); await seedProducts(db, catalogue);
   const app = createApp({ db, jwtSecret: 'test-secret-1234567', uploadDir: path.join(tmp, 'uploads'), publicUrl: 'http://host-a', authLimit: 1000 });
   await new Promise((r) => { server = app.listen(0, r); });
   base = `http://localhost:${server.address().port}`;
   const reg = await call('POST', '/v1/auth/register', { json: { email: 'boss@x.com', password: 'Hometown-Pass-77' } });
-  db.prepare("UPDATE users SET role='admin' WHERE email='boss@x.com'").run();
+  await db.prepare("UPDATE users SET role='admin' WHERE email='boss@x.com'").run();
   adminTok = reg.body.token;
 });
 after(() => server.close());
 
-test('migrations: run once, in order, idempotent, and upgrade an old database file', () => {
-  const fresh = new DatabaseSync(':memory:');
-  assert.equal(migrate(fresh), MIGRATIONS.length);
-  assert.equal(Number(fresh.prepare('PRAGMA user_version').get().user_version), MIGRATIONS.length);
-  assert.equal(migrate(fresh), MIGRATIONS.length, 'second run changes nothing');
-  for (const t of ['models', 'audit_log', 'refresh_tokens', 'auth_identities', 'email_codes']) assert.ok(fresh.prepare('SELECT 1 FROM sqlite_master WHERE name=?').get(t), t);
+test('migrations: run once, in order, idempotent, and upgrade an old database file', async () => {
+  const fresh = await openDb(undefined, { migrate: false });
+  assert.equal(await migrate(fresh), MIGRATIONS.length);
+  assert.equal(await migrate(fresh), MIGRATIONS.length, 'second run changes nothing');
+  for (const t of ['models', 'audit_log', 'refresh_tokens', 'auth_identities', 'email_codes']) await fresh.get(`SELECT 1 FROM ${t} LIMIT 1`); // throws if the table is missing
+  if (fresh.dialect !== 'sqlite') return; // the old-file upgrade below is a SQLite-only story
 
   // A database created before migrations existed (user_version 0, older products table) is upgraded without data loss.
-  const old = new DatabaseSync(':memory:');
-  old.exec("CREATE TABLE users(id INTEGER PRIMARY KEY, email TEXT UNIQUE NOT NULL, name TEXT, password_hash TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'user', created_at INTEGER NOT NULL);" +
+  const old = await openDb(':memory:', { migrate: false });
+  await old.exec("CREATE TABLE users(id INTEGER PRIMARY KEY, email TEXT UNIQUE NOT NULL, name TEXT, password_hash TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'user', created_at INTEGER NOT NULL);" +
     "CREATE TABLE products(id TEXT PRIMARY KEY, category TEXT NOT NULL, data TEXT NOT NULL);" +
     "INSERT INTO users(email,password_hash,created_at) VALUES('old@x.com','h',1);" + "INSERT INTO products VALUES('p1','Sofa','{}');");
-  migrate(old);
-  assert.equal(old.prepare('SELECT email FROM users').get().email, 'old@x.com');
-  assert.ok(old.prepare('PRAGMA table_info(products)').all().some((c) => c.name === 'version'));
+  await migrate(old);
+  assert.equal((await old.get('SELECT email FROM users')).email, 'old@x.com');
+  assert.ok((await old.all('PRAGMA table_info(products)')).some((c) => c.name === 'version'));
+  assert.equal(Number((await old.get('PRAGMA user_version')).user_version), MIGRATIONS.length);
 });
 
-test('migrations: a failing migration rolls back and reports which one', () => {
-  const d = new DatabaseSync(':memory:');
-  const bad = [(db2) => db2.exec('CREATE TABLE a(x)'), () => { throw new Error('boom'); }];
-  assert.throws(() => migrate(d, bad), /Migration 2 failed: boom/);
-  assert.equal(Number(d.prepare('PRAGMA user_version').get().user_version), 1, 'first one stays applied');
+test('migrations: a failing migration rolls back and reports which one', async () => {
+  const d = await openDb(undefined, { migrate: false });
+  const bad = [(db2) => db2.exec('CREATE TABLE a(x INTEGER)'), () => { throw new Error('boom'); }];
+  await assert.rejects(() => migrate(d, bad), /Migration 2 failed: boom/);
+  await d.get('SELECT 1 FROM a LIMIT 1'); // the first one stays applied
 });
 
 test('storage: keys cannot escape the folder; put/get/delete work', () => {
@@ -84,7 +85,7 @@ test('model upload: signed link -> PUT -> validate publishes, versions, records 
   assert.equal(up.status, 200);
   assert.equal(up.body.method, 'PUT');
   assert.match(up.body.key, /^models\/sofa-leather-v\d+\.glb$/);
-  const dims = JSON.parse(db.prepare('SELECT data FROM products WHERE id=?').get('sofa-leather').data).dimensionsCm;
+  const dims = JSON.parse((await db.prepare('SELECT data FROM products WHERE id=?').get('sofa-leather')).data).dimensionsCm;
 
   // Validate before anything is uploaded -> 404
   assert.equal((await call('POST', '/v1/admin/models/sofa-leather/validate', { token: adminTok, json: { key: up.body.key } })).status, 404);
@@ -125,9 +126,10 @@ test('uploads: bad token, empty body and oversize are refused', async () => {
   assert.equal((await fetch(up.body.uploadUrl.replace('http://host-a', base), { method: 'PUT' })).status, 400);
 });
 
-test('backup: VACUUM INTO makes a readable copy', () => {
+test('backup: VACUUM INTO makes a readable copy', async (t) => {
+  if (db.dialect !== 'sqlite') return t.skip('PostgreSQL is backed up with pg_dump or snapshots');
   const dest = path.join(tmp, 'backup', 'copy.db');
-  backupDb(db, dest);
+  await backupDb(db, dest);
   const copy = new DatabaseSync(dest);
-  assert.equal(Number(copy.prepare('SELECT COUNT(*) AS n FROM products').get().n), Number(db.prepare('SELECT COUNT(*) AS n FROM products').get().n));
+  assert.equal(Number(copy.prepare('SELECT COUNT(*) AS n FROM products').get().n), Number((await db.prepare('SELECT COUNT(*) AS n FROM products').get()).n));
 });
