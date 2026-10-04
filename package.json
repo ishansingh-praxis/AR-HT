@@ -22,7 +22,7 @@
     "build:rooms": "node scripts/build-rooms.mjs",
     "build:blurhash": "node scripts/add-blurhash.mjs",
     "test:components": "jest",
-    "models:local": "python scripts/triposr_local.py",
+    "models:colab": "node scripts/colab-batch.mjs",
     "models:from-photos": "node scripts/image-to-3d.mjs",
     "start:dev": "expo start --dev-client",
     "merge:prices": "node scripts/merge-prices.mjs"

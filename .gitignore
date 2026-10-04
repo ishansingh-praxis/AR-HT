@@ -11,6 +11,8 @@ server/data/
 server/uploads/
 data/*.csv
 models/published/
+models/colab/
+models/raw/
 server/backups/
 admin/node_modules/
 admin/dist/
