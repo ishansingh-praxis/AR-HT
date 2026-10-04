@@ -7,10 +7,12 @@
 import fs from 'node:fs';
 import { NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
-import { dedup, getBounds, prune, textureCompress } from '@gltf-transform/functions';
+import { dedup, getBounds, prune, simplify, textureCompress, weld } from '@gltf-transform/functions';
+import { MeshoptSimplifier } from 'meshoptimizer';
 import sharp from 'sharp';
 import { fitToDims, pickOrientation } from './lib/orient.mjs';
 
+const MAX_TRIANGLES = Number(process.env.MAX_TRIANGLES ?? 40000);
 const BASE = process.env.MODEL_BASE_URL ?? 'https://CHANGE-ME.example.com/models/';
 const catPath = 'src/data/catalogue.json';
 const io = new NodeIO().registerExtensions(ALL_EXTENSIONS);
@@ -60,7 +62,12 @@ export async function normalise(inFile, outFile, dims, yawDeg = 0, { auto = fals
   // Textures are usually most of a model's weight. Downscale to <=1024 px, keeping the original image format, so no
   // compression extension is needed and any glTF loader (including the AR library's) can read the result.
   const tooBig = doc.getRoot().listTextures().some((t) => (t.getSize() ?? [0, 0]).some((v) => v > 1024)); // re-encoding small textures only makes them bigger
-  await doc.transform(dedup(), prune(), ...(tooBig ? [textureCompress({ encoder: sharp, resize: [1024, 1024] })] : []));
+  // Generated meshes can have hundreds of thousands of triangles: too heavy for AR on a phone. Reduce to about MAX_TRIANGLES.
+  let tris = 0;
+  for (const mesh of doc.getRoot().listMeshes()) for (const prim of mesh.listPrimitives()) tris += (prim.getIndices()?.getCount() ?? prim.getAttribute('POSITION').getCount()) / 3;
+  const slim = [];
+  if (tris > MAX_TRIANGLES) { await MeshoptSimplifier.ready; slim.push(weld(), simplify({ simplifier: MeshoptSimplifier, ratio: MAX_TRIANGLES / tris, error: 0.01 })); }
+  await doc.transform(...slim, dedup(), prune(), ...(tooBig ? [textureCompress({ encoder: sharp, resize: [1024, 1024] })] : []));
   await io.write(outFile, doc);
   const w = size.w * sc[0] * 100, d = size.d * sc[2] * 100;
   const mb = fs.statSync(outFile).size / 1e6;
@@ -68,6 +75,7 @@ export async function normalise(inFile, outFile, dims, yawDeg = 0, { auto = fals
   if (fit && fit.worst > 1.4) issues.push(`shape is ${fit.worst.toFixed(1)}x off the listed proportions (stretched to fit)`);
   if (Math.abs(w - dims.w) / dims.w > 0.1) issues.push(`width ${w.toFixed(0)}cm vs listed ${dims.w}cm`);
   if (Math.abs(d - dims.d) / dims.d > 0.1) issues.push(`depth ${d.toFixed(0)}cm vs listed ${dims.d}cm`);
+  if (tris > MAX_TRIANGLES) note += ` simplified from ${Math.round(tris / 1000)}k triangles`;
   if (mb > 8) issues.push(`${mb.toFixed(1)}MB over the 8MB budget`);
   return { w, d, mb, issues, stretch: fit?.worst ?? 1, note };
 }
