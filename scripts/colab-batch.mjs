@@ -2,7 +2,8 @@
 //
 //   node scripts/colab-batch.mjs export --next 20      writes models/colab/products.json (the best products to model first)
 //   -> upload that file in colab/triposr_batch.ipynb, run it, download models.zip
-//   node scripts/colab-batch.mjs import models.zip     unpacks the GLBs into models/raw/ (never overwrites)
+//   node scripts/colab-batch.mjs import models.zip     unpacks the GLBs into models/raw/ (never overwrites unless --replace; the old file is kept as <id>.old.glb)
+//   node scripts/colab-batch.mjs export --next 20 --redo   the same best products again, e.g. with a better model
 //   node scripts/image-to-3d.mjs --normalise           scales to the listed size, stands them on the floor, checks, publishes
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,7 +18,7 @@ if (cmd === 'export') {
   const catalogue = JSON.parse(fs.readFileSync('src/data/catalogue.json', 'utf8'));
   const rooms = JSON.parse(fs.readFileSync('src/data/rooms.json', 'utf8'));
   fs.mkdirSync(RAW, { recursive: true });
-  const have = new Set(fs.readdirSync(RAW).filter((f) => f.endsWith('.glb')).map((f) => f.slice(0, -4)));
+  const have = new Set(process.argv.includes('--redo') ? [] : fs.readdirSync(RAW).filter((f) => f.endsWith('.glb')).map((f) => f.slice(0, -4))); // --redo: model the same products again with a better model
   const list = pickProducts(catalogue, rooms, Number(opt('next', 20)), have)
     .map((p) => ({ id: p.id, name: p.name, photo: photoFor(p), dimensionsCm: p.dimensionsCm, dominantHex: p.dominantHex }));
   fs.mkdirSync('models/colab', { recursive: true });
@@ -31,7 +32,8 @@ if (cmd === 'export') {
   let n = 0;
   for (const f of fs.readdirSync(tmp).filter((x) => x.endsWith('.glb'))) {
     const dest = path.join(RAW, f);
-    if (fs.existsSync(dest)) { console.log('skip (exists)', f); continue; }
+    if (fs.existsSync(dest) && !process.argv.includes('--replace')) { console.log('skip (exists, use --replace to overwrite)', f); continue; }
+    if (fs.existsSync(dest)) fs.copyFileSync(dest, dest.replace(/\.glb$/, '.old.glb')); // keep the previous version
     fs.copyFileSync(path.join(tmp, f), dest); n++;
   }
   fs.rmSync(tmp, { recursive: true, force: true });
