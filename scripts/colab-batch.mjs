@@ -19,7 +19,7 @@ if (cmd === 'export') {
   fs.mkdirSync(RAW, { recursive: true });
   const have = new Set(fs.readdirSync(RAW).filter((f) => f.endsWith('.glb')).map((f) => f.slice(0, -4)));
   const list = pickProducts(catalogue, rooms, Number(opt('next', 20)), have)
-    .map((p) => ({ id: p.id, name: p.name, photo: photoFor(p), dimensionsCm: p.dimensionsCm }));
+    .map((p) => ({ id: p.id, name: p.name, photo: photoFor(p), dimensionsCm: p.dimensionsCm, dominantHex: p.dominantHex }));
   fs.mkdirSync('models/colab', { recursive: true });
   fs.writeFileSync('models/colab/products.json', JSON.stringify(list, null, 1));
   console.log(`models/colab/products.json: ${list.length} products. Upload it in colab/triposr_batch.ipynb.`);

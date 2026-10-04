@@ -23,7 +23,7 @@ export const viewerHtml = (src: string, opts: { scale?: string; photo?: string; 
 <script type="module">${MODEL_VIEWER_JS}</script>
 <style>html,body{margin:0;height:100%;background:#E7ECEA}model-viewer{width:100%;height:100%;--poster-color:#E7ECEA}</style></head>
 <body><model-viewer id="mv" src="${src}" ${opts.scale ? `scale="${opts.scale}"` : ''} camera-controls ${opts.still ? '' : 'auto-rotate'} auto-rotate-delay="0"
- rotation-per-second="40deg" interaction-prompt="none" shadow-intensity="1" exposure="1.1"></model-viewer>
+ rotation-per-second="12deg" interaction-prompt="none" shadow-intensity="1" exposure="1.1"></model-viewer>
 <script>
 const mv=document.getElementById('mv');
 const say=(m)=>window.ReactNativeWebView&&window.ReactNativeWebView.postMessage(m);
