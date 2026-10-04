@@ -15,6 +15,8 @@ export interface Model3D {
   url: string;
   version: number;
   unit: 'm';
+  /** The .glb ships inside the app (assets/models, src/data/bundledModels.ts); `url` is empty. */
+  bundled?: boolean;
 }
 
 /** A catalogue item. No price, stock or delivery data: this app is a room designer, not a shop. */

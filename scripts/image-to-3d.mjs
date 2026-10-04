@@ -31,8 +31,8 @@ const yaw = Number(opt('yaw', 0));
 fs.mkdirSync(RAW, { recursive: true }); fs.mkdirSync(OUT, { recursive: true });
 
 async function check(p) {
-  const r = await normalise(path.join(RAW, `${p.id}.glb`), path.join(OUT, `${p.id}.glb`), p.dimensionsCm, yaw);
-  console.log(`${r.issues.length ? 'REVIEW' : 'OK    '} ${p.id}  ${r.w.toFixed(0)}x${r.d.toFixed(0)}cm vs ${p.dimensionsCm.w}x${p.dimensionsCm.d}  ${r.mb.toFixed(1)}MB  ${r.issues.join('; ')}`);
+  const r = await normalise(path.join(RAW, `${p.id}.glb`), path.join(OUT, `${p.id}.glb`), p.dimensionsCm, yaw, { auto: true });
+  console.log(`${r.issues.length ? 'REVIEW' : 'OK    '} ${p.id}  ${r.w.toFixed(0)}x${r.d.toFixed(0)}cm vs ${p.dimensionsCm.w}x${p.dimensionsCm.d}  ${r.mb.toFixed(1)}MB  stretch ${r.stretch.toFixed(2)}x  ${r.issues.join('; ')}`);
   return r;
 }
 

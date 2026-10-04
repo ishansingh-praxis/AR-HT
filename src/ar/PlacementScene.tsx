@@ -5,6 +5,7 @@ import {
 import { getFurniture } from '../data/furniture';
 import { hangOnWall, type Wall } from '../utils/wall';
 import { PROXY_ASSETS } from '../data/proxyAssets';
+import { BUNDLED_MODELS } from '../data/bundledModels';
 import type { PlacedItem } from '../types/furniture';
 import { shadowFrame } from '../utils/shadow';
 import type { Vec3 } from './types';
@@ -102,7 +103,7 @@ export function PlacementScene(props: any) {
         // Photo-real model: uniform scale. Simplified shape: a 1 m cube stretched to the real W x H x D.
         const sc: Vec3 = real ? [it.scale, it.scale, it.scale]
           : [(product.dimensionsCm.w / 100) * it.scale, (product.dimensionsCm.h / 100) * it.scale, (product.dimensionsCm.d / 100) * it.scale];
-        const source = real ? { uri: modelUris[product.id] ?? product.model3D!.url } : PROXY_ASSETS[`${product.proxy!.template}-${product.proxy!.color}`];
+        const source = real ? (BUNDLED_MODELS[product.id] && product.model3D!.bundled ? BUNDLED_MODELS[product.id] : { uri: modelUris[product.id] ?? product.model3D!.url }) : PROXY_ASSETS[`${product.proxy!.template}-${product.proxy!.color}`];
         const wallOnly = isWallOnly(product);
         const bad = colliding.includes(it.uid);
         // Selection ring sized to the real footprint.

@@ -69,3 +69,21 @@ assert.equal(turned.issues.length, 0, 'facing sideways is fixed with a 90 degree
 assert.ok(Math.abs(turned.w - 103) < 2 && Math.abs(turned.d - 220) < 2);
 
 console.log('image-to-3D tests passed');
+
+// ---- upright orientation of generated models ----
+{
+  const { pickOrientation, fitToDims } = await import('./lib/orient.mjs');
+  // A sofa 160 x 81 x 80 that came out lying on its side: its long axis is the model's Y, the 81 cm depth is X, the 80 cm height is Z.
+  const o = pickOrientation([81, 160, 80], [0, 0, -0.1], { w: 160, d: 81, h: 80 });
+  assert.ok(Math.abs(o.size.w - 160) < 1 && Math.abs(o.size.h - 80) < 1 && Math.abs(o.size.d - 81) < 1, 'width, height and depth are matched to the right axes');
+  const q = o.quat; assert.ok(Math.abs(q[0] ** 2 + q[1] ** 2 + q[2] ** 2 + q[3] ** 2 - 1) < 1e-9, 'the rotation is a unit quaternion');
+  // upside down: the average vertex is in the upper half along the chosen up axis
+  const flipped = pickOrientation([160, 80, 81], [0, 0.3, 0], { w: 160, d: 81, h: 80 });
+  assert.equal(flipped.matrix[1][1], -1, 'an upside-down model is turned over');
+  const upright = pickOrientation([160, 80, 81], [0, -0.1, 0], { w: 160, d: 81, h: 80 });
+  assert.equal(upright.matrix[1][1], 1);
+  // fitting: a perfect shape needs no stretch, a squashed one reports how much
+  assert.ok(fitToDims({ w: 1.6, h: 0.8, d: 0.81 }, { w: 160, d: 81, h: 80 }).worst < 1.01);
+  assert.ok(fitToDims({ w: 1.6, h: 0.8, d: 0.2 }, { w: 160, d: 81, h: 80 }).worst > 1.5);
+  console.log('orientation tests passed');
+}

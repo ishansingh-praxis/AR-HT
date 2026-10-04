@@ -1,4 +1,6 @@
 import { create } from 'zustand';
+import { BUNDLED_MODELS } from '../data/bundledModels';
+import { applyBundled } from '../utils/bundled';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { File, Paths } from 'expo-file-system';
@@ -19,6 +21,9 @@ interface CatalogueState {
 }
 
 // The server catalogue is ~660 KB: too big for one AsyncStorage value, so it lives in a file. Only {source, version} is persisted.
+const BUNDLED_IDS = new Set(Object.keys(BUNDLED_MODELS));
+const withBundled = (p: Product[]) => applyBundled(p, BUNDLED_IDS);
+
 const cacheFile = () => new File(Paths.document, 'catalogue-cache.json');
 const writeCache = (products: Product[]) => {
   try { const f = cacheFile(); if (!f.exists) f.create(); f.write(JSON.stringify(products)); } catch { /* the in-memory copy still works */ }
@@ -28,7 +33,7 @@ const writeCache = (products: Product[]) => {
 export const useCatalogue = create<CatalogueState>()(
   persist(
     (set, get) => ({
-      products: bundled as unknown as Product[],
+      products: withBundled(bundled as unknown as Product[]),
       version: 0,
       source: 'bundled',
       hydrate: async () => {
@@ -37,9 +42,9 @@ export const useCatalogue = create<CatalogueState>()(
           const f = cacheFile();
           if (!f.exists) { set({ source: 'bundled', version: 0 }); return; }
           const items = JSON.parse(await f.text()) as Product[];
-          if (Array.isArray(items) && items.length) set({ products: items, source: 'cached' });
+          if (Array.isArray(items) && items.length) set({ products: withBundled(items), source: 'cached' });
         } catch {
-          set({ products: bundled as unknown as Product[], source: 'bundled', version: 0 });
+          set({ products: withBundled(bundled as unknown as Product[]), source: 'bundled', version: 0 });
         }
       },
       refresh: async () => {
@@ -47,7 +52,7 @@ export const useCatalogue = create<CatalogueState>()(
         try {
           const delta = await fetchCatalogue(get().version);
           if (!delta) return; // 304: nothing changed
-          const products = applyDelta(get().products, delta);
+          const products = withBundled(applyDelta(get().products, delta));
           set({ products, version: delta.version, source: 'server' });
           writeCache(products);
         } catch {
