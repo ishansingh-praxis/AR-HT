@@ -3,6 +3,7 @@
 //   node scripts/colab-batch.mjs export --next 20      writes models/colab/products.json (the best products to model first)
 //   -> upload that file in colab/triposr_batch.ipynb, run it, download models.zip
 //   node scripts/colab-batch.mjs import models.zip     unpacks the GLBs into models/raw/ (never overwrites unless --replace; the old file is kept as <id>.old.glb)
+//   node scripts/colab-batch.mjs import models_triposr.zip --model triposr --replace   (all_models_batch.ipynb zips: strips the __triposr ending)
 //   node scripts/colab-batch.mjs export --all [--redo]     every placeable product with all its photos (multi-photo notebook)
 //   node scripts/colab-batch.mjs export --next 20 --redo   the same best products again, e.g. with a better model
 //   node scripts/image-to-3d.mjs --normalise           scales to the listed size, stands them on the floor, checks, publishes
@@ -37,8 +38,9 @@ if (cmd === 'export') {
   // `tar` ships with Windows 10+, macOS and Linux and reads zip files.
   execFileSync('tar', ['-xf', arg, '-C', tmp]);
   let n = 0;
+  const model = opt('model', ''); // --model triposr: files are named <id>__triposr.glb, import them as <id>.glb
   for (const f of fs.readdirSync(tmp).filter((x) => x.endsWith('.glb'))) {
-    const dest = path.join(RAW, f);
+    const dest = path.join(RAW, model ? f.replace(`__${model}.glb`, '.glb') : f);
     if (fs.existsSync(dest) && !process.argv.includes('--replace')) { console.log('skip (exists, use --replace to overwrite)', f); continue; }
     if (fs.existsSync(dest)) fs.copyFileSync(dest, dest.replace(/\.glb$/, '.old.glb')); // keep the previous version
     fs.copyFileSync(path.join(tmp, f), dest); n++;
